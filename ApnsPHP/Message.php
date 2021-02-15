@@ -107,12 +107,12 @@ class ApnsPHP_Message
 	}
 
 	/**
-	 * Get a recipient.
+	 * Get an object for a single recipient.
 	 *
 	 * @param  $nRecipient @type integer @optional Recipient number to return.
 	 * @throws ApnsPHP_Message_Exception if no recipient number
 	 *         exists.
-	 * @return @type string The recipient token at index $nRecipient.
+	 * @return ApnsPHP_Message The message configured with the token at index $nRecipient.
 	 */
 	public function selfForRecipient($nRecipient = 0)
 	{
@@ -122,6 +122,7 @@ class ApnsPHP_Message
 			);
 		}
 
+		//TODO: Replace this with actuall looping over recipients
 		$copy = clone $this;
 		$copy->_aDeviceTokens = [$this->_aDeviceTokens[$nRecipient]];
 
