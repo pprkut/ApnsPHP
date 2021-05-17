@@ -19,6 +19,10 @@
             <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>
             <file>ApnsPHP/Tests/MessageGetPayloadTest.php</file>
         </testsuite>
+        <testsuite name="Message">
+            <file>ApnsPHP/Message/Tests/CustomMessageTest.php</file>
+            <file>ApnsPHP/Message/Tests/CustomMessageGetPayloadDictionaryTest.php</file>
+        </testsuite>
     </testsuites>
 
     <logging>
