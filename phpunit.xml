@@ -18,6 +18,13 @@
             <file>ApnsPHP/Tests/MessageSelfForRecipientTest.php</file>
             <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>
             <file>ApnsPHP/Tests/MessageGetPayloadTest.php</file>
+            <file>ApnsPHP/Tests/PushTest.php</file>
+            <file>ApnsPHP/Tests/PushAddTest.php</file>
+            <file>ApnsPHP/Tests/PushSendTest.php</file>
+            <file>ApnsPHP/Tests/PushHttpSendTest.php</file>
+            <file>ApnsPHP/Tests/PushReadErrorMessageTest.php</file>
+            <file>ApnsPHP/Tests/PushUpdateQueueTest.php</file>
+            <file>ApnsPHP/Tests/PushRemoveMessageFromQueueTest.php</file>
         </testsuite>
         <testsuite name="Message">
             <file>ApnsPHP/Message/Tests/CustomMessageTest.php</file>
