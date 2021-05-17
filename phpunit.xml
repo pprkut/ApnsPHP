@@ -13,6 +13,11 @@
             <file>ApnsPHP/Tests/SharedConfigDisconnectTest.php</file>
             <file>ApnsPHP/Tests/SharedConfigHttpInitTest.php</file>
             <file>ApnsPHP/Tests/SharedConfigConnectTest.php</file>
+            <file>ApnsPHP/Tests/MessageTest.php</file>
+            <file>ApnsPHP/Tests/MessageAddRecipientTest.php</file>
+            <file>ApnsPHP/Tests/MessageSelfForRecipientTest.php</file>
+            <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>
+            <file>ApnsPHP/Tests/MessageGetPayloadTest.php</file>
         </testsuite>
     </testsuites>
 
@@ -27,6 +32,7 @@
 
         <exclude>
             <directory>ApnsPHP/Tests</directory>
+            <directory>ApnsPHP/Message/Tests</directory>
         </exclude>
 
         <report>
