@@ -22,6 +22,8 @@
         <testsuite name="Message">
             <file>ApnsPHP/Message/Tests/CustomMessageTest.php</file>
             <file>ApnsPHP/Message/Tests/CustomMessageGetPayloadDictionaryTest.php</file>
+            <file>ApnsPHP/Message/Tests/SafariMessageTest.php</file>
+            <file>ApnsPHP/Message/Tests/SafariMessageGetPayloadDictionaryTest.php</file>
         </testsuite>
     </testsuites>
 
