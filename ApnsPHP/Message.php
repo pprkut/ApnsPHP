@@ -88,6 +88,8 @@ class Message
     /**< @type int The priority of the remote notification. */
     protected $priority;
 
+    private ?string $pushType = null;
+
     /**
      * Constructor.
      *
@@ -682,5 +684,18 @@ class Message
     public function getCollapseId()
     {
         return $this->collapseId;
+    }
+
+    /**
+     * @param 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm' $pushType
+     */
+    public function setPushType(string $pushType): void
+    {
+        $this->pushType = $pushType;
+    }
+
+    public function getPushType(): ?string
+    {
+        return $this->pushType;
     }
 }
