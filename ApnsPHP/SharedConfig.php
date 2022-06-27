@@ -127,7 +127,7 @@ abstract class SharedConfig
      *         with key (Bundled PEM).
      * @param  $protocol @type integer Protocol.
      */
-    public function __construct($environment, $providerCertificateFile, $protocol = self::PROTOCOL_BINARY)
+    public function __construct(int $environment, string $providerCertificateFile, int $protocol = self::PROTOCOL_BINARY)
     {
         if ($environment != self::ENVIRONMENT_PRODUCTION && $environment != self::ENVIRONMENT_SANDBOX) {
             throw new Exception(
