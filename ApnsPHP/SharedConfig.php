@@ -202,7 +202,7 @@ abstract class SharedConfig
      *
      * @param string $providerCertPassphrase Provider Certificate passphrase.
      */
-    public function setProviderCertificatePassphrase($providerCertPassphrase)
+    public function setProviderCertificatePassphrase(string $providerCertPassphrase): void
     {
         $this->providerCertPassphrase = $providerCertPassphrase;
     }
@@ -212,7 +212,7 @@ abstract class SharedConfig
      *
      * @param string $teamId Apple Team Identifier.
      */
-    public function setTeamId($teamId)
+    public function setTeamId(string $teamId): void
     {
         $this->providerTeamId = $teamId;
     }
@@ -222,7 +222,7 @@ abstract class SharedConfig
      *
      * @param string $keyId Apple Key Identifier.
      */
-    public function setKeyId($keyId)
+    public function setKeyId(string $keyId): void
     {
         $this->providerKeyId = $keyId;
     }
@@ -240,7 +240,7 @@ abstract class SharedConfig
      * @param  $rootCertificationAuthorityFile @type string Root Certification
      *         Authority file.
      */
-    public function setRootCertificationAuthority($rootCertificationAuthorityFile)
+    public function setRootCertificationAuthority(string $rootCertificationAuthorityFile): void
     {
         if (!is_readable($rootCertificationAuthorityFile)) {
             throw new Exception(
@@ -269,9 +269,9 @@ abstract class SharedConfig
      *
      * @param  $writeInterval @type integer Write interval in micro seconds.
      */
-    public function setWriteInterval($writeInterval)
+    public function setWriteInterval(int $writeInterval): void
     {
-        $this->writeInterval = (int)$writeInterval;
+        $this->writeInterval = $writeInterval;
     }
 
     /**
@@ -292,9 +292,9 @@ abstract class SharedConfig
      *
      * @param  $timeout @type integer Connection timeout in seconds.
      */
-    public function setConnectTimeout($timeout)
+    public function setConnectTimeout(int $timeout): void
     {
-        $this->connectTimeout = (int)$timeout;
+        $this->connectTimeout = $timeout;
     }
 
     /**
@@ -315,9 +315,9 @@ abstract class SharedConfig
      *
      * @param  $retryTimes @type integer Connect retry times.
      */
-    public function setConnectRetryTimes($retryTimes)
+    public function setConnectRetryTimes(int $retryTimes): void
     {
-        $this->connectRetryTimes = (int)$retryTimes;
+        $this->connectRetryTimes = $retryTimes;
     }
 
     /**
@@ -340,9 +340,9 @@ abstract class SharedConfig
      *@see setConnectRetryTimes
      *
      */
-    public function setConnectRetryInterval($retryInterval)
+    public function setConnectRetryInterval(int $retryInterval): void
     {
-        $this->connectRetryInterval = (int)$retryInterval;
+        $this->connectRetryInterval = $retryInterval;
     }
 
     /**
@@ -372,9 +372,9 @@ abstract class SharedConfig
      *
      * @param  $selectTimeout @type integer Socket select timeout in micro seconds.
      */
-    public function setSocketSelectTimeout($selectTimeout)
+    public function setSocketSelectTimeout(int $selectTimeout): void
     {
-        $this->socketSelectTimeout = (int)$selectTimeout;
+        $this->socketSelectTimeout = $selectTimeout;
     }
 
     /**
