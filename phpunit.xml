@@ -22,7 +22,6 @@
             <file>ApnsPHP/Tests/PushAddTest.php</file>
             <file>ApnsPHP/Tests/PushSendTest.php</file>
             <file>ApnsPHP/Tests/PushHttpSendTest.php</file>
-            <file>ApnsPHP/Tests/PushReadErrorMessageTest.php</file>
             <file>ApnsPHP/Tests/PushUpdateQueueTest.php</file>
             <file>ApnsPHP/Tests/PushRemoveMessageFromQueueTest.php</file>
         </testsuite>

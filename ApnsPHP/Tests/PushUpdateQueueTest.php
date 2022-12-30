@@ -24,66 +24,10 @@ class PushUpdateQueueTest extends PushTest
      */
     public function testUpdateQueueReturnsFalse()
     {
-        $this->class->expects($this->once())
-                    ->method('readErrorMessage')
-                    ->will($this->returnValue(null));
-
         $method = $this->get_accessible_reflection_method('updateQueue');
         $result = $method->invoke($this->class);
 
         $this->assertFalse($result);
-    }
-
-    /**
-     * Test that updateQueue() succeeds without an errorMessage parameter
-     *
-     * @covers \ApnsPHP\Push::updateQueue
-     */
-    public function testUpdateQueueSucceedsWithoutErrorMessageParameter()
-    {
-        $errorMessage = [
-            'identifier' => 3,
-            'time' => 1620029695,
-            'statusCode' => 4 ,
-            'statusMessage' => 'Missing payload'
-        ];
-
-        $queue = [
-            1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ],
-            2 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ],
-            3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ]
-        ];
-
-        $resultMessage = [ 3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [$errorMessage] ]];
-
-        $this->set_reflection_property_value('messageQueue', $queue);
-
-        $this->class->expects($this->once())
-                    ->method('readErrorMessage')
-                    ->will($this->returnValue($errorMessage));
-
-        $this->class->expects($this->once())
-                    ->method('logger')
-                    ->will($this->returnValue($this->logger));
-
-        $this->logger->expects($this->once())
-                     ->method('error')
-                     ->with('Unable to send message ID 3: Missing payload (4).');
-
-        $this->class->expects($this->once())
-                    ->method('disconnect')
-                    ->will($this->returnValue(true));
-
-        $this->class->expects($this->once())
-                    ->method('connect');
-
-        $method = $this->get_accessible_reflection_method('updateQueue');
-        $result = $method->invoke($this->class);
-
-        $messageQueue  = $this->get_accessible_reflection_property('messageQueue')->getValue($this->class);
-
-        $this->assertTrue($result);
-        $this->assertEquals($resultMessage, $messageQueue);
     }
 
     /**
@@ -109,10 +53,6 @@ class PushUpdateQueueTest extends PushTest
         $resultMessage = [ 3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [$errorMessage] ]];
 
         $this->set_reflection_property_value('messageQueue', $queue);
-
-        $this->class->expects($this->once())
-                    ->method('readErrorMessage')
-                    ->will($this->returnValue($errorMessage));
 
         $this->class->expects($this->once())
                     ->method('logger')
@@ -161,10 +101,6 @@ class PushUpdateQueueTest extends PushTest
         $this->set_reflection_property_value('messageQueue', $queue);
 
         $this->class->expects($this->once())
-                    ->method('readErrorMessage')
-                    ->will($this->returnValue($errorMessage));
-
-        $this->class->expects($this->once())
                     ->method('logger')
                     ->will($this->returnValue($this->logger));
 
@@ -180,7 +116,7 @@ class PushUpdateQueueTest extends PushTest
                     ->method('connect');
 
         $method = $this->get_accessible_reflection_method('updateQueue');
-        $result = $method->invoke($this->class);
+        $result = $method->invoke($this->class, $errorMessage);
 
         $messageQueue  = $this->get_accessible_reflection_property('messageQueue')->getValue($this->class);
 

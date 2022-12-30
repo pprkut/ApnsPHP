@@ -61,7 +61,6 @@ class PushSendTest extends PushTest
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('protocol', 1);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
 
@@ -124,7 +123,6 @@ class PushSendTest extends PushTest
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('protocol', 1);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
 
@@ -194,7 +192,6 @@ class PushSendTest extends PushTest
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('protocol', 1);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
 
@@ -254,7 +251,6 @@ class PushSendTest extends PushTest
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('protocol', 1);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
 

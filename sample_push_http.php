@@ -31,8 +31,7 @@ require_once 'vendor/autoload.php';
 // Instantiate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
 	\ApnsPHP\SharedConfig::ENVIRONMENT_SANDBOX,
-	'UniversalPushNotificationClientSSLCertificate.p8',
-	\ApnsPHP\SharedConfig::PROTOCOL_HTTP
+	'UniversalPushNotificationClientSSLCertificate.p8'
 );
 
 $push->setTeamId('sgfdgfdfgd');

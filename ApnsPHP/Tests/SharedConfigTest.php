@@ -35,8 +35,7 @@ abstract class SharedConfigTest extends LunrBaseTest
     {
         $constructorArgs = [
             SharedConfig::ENVIRONMENT_SANDBOX,
-            'ApnsPHP/Tests/SharedConfigTest.php',
-            SharedConfig::PROTOCOL_HTTP
+            'ApnsPHP/Tests/SharedConfigTest.php'
         ];
 
         $this->logger = $this->getMockBuilder('ApnsPHP\Log\EmbeddedLogger')->getMock();

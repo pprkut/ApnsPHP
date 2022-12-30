@@ -11,7 +11,6 @@
 A **full set** of *open source* PHP classes to interact with the **Apple Push Notification service** for the iPhone, iPad and the iPod Touch.
 
 - [Sample PHP Push code](sample_push.php)
-- [Sample PHP Feedback code](sample_feedback.php)
 - [Sample PHP Server code](sample_server.php)
 - [Full APIs Documentation](http://immobiliare.github.io/ApnsPHP/html/index.html)
 - [How to generate a Push Notification certificate and download the Entrust Root Authority certificate](Doc/CertificateCreation.md)
@@ -44,10 +43,8 @@ Architecture
 - **Autoload system**, explicitly include only Autoload.php and all classes are loaded on-demand.
 - **Message class**, to build a notification payload.
 - **Push class**, to push one or more messages to Apple Push Notification service.
-- **Feedback class**, to query the Apple Feedback service to get the list of broken device tokens.
 - **Push Server class**, to create a Push Server with one or more (forked) processes reading from a common message queue.
 - **Log class/interface**, to log to standard output or for custom logging purpose (supports loggers implementing the PSR-3 logger interface).
-- **Objective-C Demo Project** with not-running, running in foreground and running in background application state support.
 
 Classes hierarchy
 ------------

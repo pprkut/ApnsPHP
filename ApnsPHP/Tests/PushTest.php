@@ -47,7 +47,6 @@ abstract class PushTest extends LunrBaseTest
         $methods = [
             'logger',
             'updateQueue',
-            'readErrorMessage',
             'disconnect',
             'connect',
             'parseErrorMessage'

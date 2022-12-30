@@ -50,12 +50,6 @@ abstract class SharedConfig
     /**< @type integer Sandbox environment. */
     public const ENVIRONMENT_SANDBOX = 1;
 
-    /**< @type integer Binary Provider API. */
-    public const PROTOCOL_BINARY = 0;
-
-    /**< @type integer APNs Provider API. */
-    public const PROTOCOL_HTTP   = 1;
-
     /**< @type integer Device token length. */
     public const DEVICE_BINARY_SIZE = 32;
 
@@ -68,17 +62,11 @@ abstract class SharedConfig
     /**< @type integer Default socket select timeout in micro seconds. */
     public const SOCKET_SELECT_TIMEOUT = 1000000;
 
-    /**< @type array Container for service URLs environments. */
-    protected $serviceURLs = array();
-
     /**< @type array Container for HTTP/2 service URLs environments. */
     protected $HTTPServiceURLs = array();
 
     /**< @type integer Active environment. */
     protected $environment;
-
-    /**< @type integer Active protocol. */
-    protected $protocol;
 
     /**< @type integer Connect timeout in seconds. */
     protected $connectTimeout;
@@ -125,9 +113,8 @@ abstract class SharedConfig
      * @param  $environment @type integer Environment.
      * @param  $providerCertificateFile @type string Provider certificate file
      *         with key (Bundled PEM).
-     * @param  $protocol @type integer Protocol.
      */
-    public function __construct(int $environment, string $providerCertificateFile, int $protocol = self::PROTOCOL_BINARY)
+    public function __construct(int $environment, string $providerCertificateFile)
     {
         if ($environment != self::ENVIRONMENT_PRODUCTION && $environment != self::ENVIRONMENT_SANDBOX) {
             throw new Exception(
@@ -142,13 +129,6 @@ abstract class SharedConfig
             );
         }
         $this->providerCertFile = $providerCertificateFile;
-
-        if ($protocol != self::PROTOCOL_BINARY && $protocol != self::PROTOCOL_HTTP) {
-            throw new Exception(
-                "Invalid protocol '{$protocol}'"
-            );
-        }
-        $this->protocol = $protocol;
 
         $this->connectTimeout = ini_get("default_socket_timeout");
         $this->writeInterval = self::WRITE_INTERVAL;
@@ -402,8 +382,7 @@ abstract class SharedConfig
         $retry = 0;
         while (!$connected) {
             try {
-                $connected = $this->protocol === self::PROTOCOL_HTTP ?
-                    $this->httpInit() : $this->binaryConnect($this->serviceURLs[$this->environment]);
+                $connected = $this->httpInit();
             } catch (Exception $e) {
                 $this->logger()->error($e->getMessage());
                 if ($retry >= $this->connectRetryTimes) {
@@ -427,14 +406,10 @@ abstract class SharedConfig
      */
     public function disconnect()
     {
-        if (is_resource($this->hSocket)) {
+        if (is_resource($this->hSocket) || is_object($this->hSocket)) {
             $this->logger()->info('Disconnected.');
-            if ($this->protocol === self::PROTOCOL_HTTP) {
-                curl_close($this->hSocket);
-                return true;
-            } else {
-                return fclose($this->hSocket);
-            }
+            curl_close($this->hSocket);
+            return true;
         }
         return false;
     }
@@ -504,59 +479,6 @@ abstract class SharedConfig
             ->withHeader('kid', $this->providerKeyId)
             ->getToken(Sha256::create(), $key)
             ->toString();
-    }
-
-    /**
-     * Connects to Apple Push Notification service server via binary protocol.
-     *
-     * @return @type boolean True if successful connected.
-     */
-    protected function binaryConnect($URL)
-    {
-        $this->logger()->info("Trying {$URL}...");
-        $URL = $this->serviceURLs[$this->environment];
-
-        $this->logger()->info("Trying {$URL}...");
-
-        /**
-         * @see http://php.net/manual/en/context.ssl.php
-         */
-        $streamContext = stream_context_create(array('ssl' => array(
-            'verify_peer' => isset($this->rootCertAuthorityFile),
-            'cafile' => $this->rootCertAuthorityFile,
-            'local_cert' => $this->providerCertFile
-        )));
-
-        if (!empty($this->providerCertPassphrase)) {
-            stream_context_set_option(
-                $streamContext,
-                'ssl',
-                'passphrase',
-                $this->providerCertPassphrase
-            );
-        }
-
-        $this->hSocket = @stream_socket_client(
-            $URL,
-            $errorCode,
-            $errorMessage,
-            $this->connectTimeout,
-            STREAM_CLIENT_CONNECT,
-            $streamContext
-        );
-
-        if (!$this->hSocket) {
-            throw new Exception(
-                "Unable to connect to '{$URL}': {$errorMessage} ({$errorCode})"
-            );
-        }
-
-        stream_set_blocking($this->hSocket, 0);
-        stream_set_write_buffer($this->hSocket, 0);
-
-        $this->logger()->info("Connected to {$URL}.");
-
-        return true;
     }
 
     /**

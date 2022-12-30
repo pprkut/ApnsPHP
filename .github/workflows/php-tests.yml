@@ -77,7 +77,7 @@ jobs:
           touch server_certificates_bundle_sandbox.pem
 
       - name: Run sample
-        run: php sample_push.php | grep "Trying tls://gateway.sandbox.push.apple.com:2195"
+        run: php sample_push.php | grep "Trying to initialize HTTP/2 backend"
 
   phpcs:
     runs-on: ubuntu-latest
