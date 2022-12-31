@@ -11,7 +11,6 @@
 A **full set** of *open source* PHP classes to interact with the **Apple Push Notification service** for the iPhone, iPad and the iPod Touch.
 
 - [Sample PHP Push code](sample_push.php)
-- [Sample PHP Server code](sample_server.php)
 - [Full APIs Documentation](http://immobiliare.github.io/ApnsPHP/html/index.html)
 - [How to generate a Push Notification certificate and download the Entrust Root Authority certificate](Doc/CertificateCreation.md)
 
@@ -43,7 +42,6 @@ Architecture
 - **Autoload system**, explicitly include only Autoload.php and all classes are loaded on-demand.
 - **Message class**, to build a notification payload.
 - **Push class**, to push one or more messages to Apple Push Notification service.
-- **Push Server class**, to create a Push Server with one or more (forked) processes reading from a common message queue.
 - **Log class/interface**, to log to standard output or for custom logging purpose (supports loggers implementing the PSR-3 logger interface).
 
 Classes hierarchy
@@ -59,20 +57,12 @@ Details
 
 In the Apple Push Notification Binary protocol there isn't a real-time feedback about the correctness of notifications pushed to the server. So, after each write to the server, the Push class waits for the "read stream" to change its status (or at least N microseconds); if it happened and the client socket receives an "end-of-file" from the server, the notification pushed to the server was broken, the Apple server has closed the connection and the client needs to reconnect to send other notifications still on the message queue.
 
-To speed-up the sending activities the Push Server class can be used to create a Push Notification Server with many processes that reads a common message queue and sends parallel Push Notifications.
-
 All client-server activities are based on the "on error, retry" pattern with customizable timeouts, retry times and retry intervals.
 
 Requirements
 -------------
 
-PHP 5.3.0 or later with OpenSSL, PCNTL, System V shared memory and semaphore support.
-
-```
-./configure --with-openssl[=PATH] --enable-pcntl --enable-sysvshm --enable-sysvsem
-```
-
-If you plan to use only Push and Feedback provider without the Server part you need only OpenSSL (no PCNTL, System V shared memory or semaphore):
+PHP 5.3.0 or later with OpenSSL.
 
 ```
 ./configure --with-openssl[=PATH]
