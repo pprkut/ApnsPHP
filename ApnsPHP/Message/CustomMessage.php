@@ -33,22 +33,19 @@ use ApnsPHP\Message;
 class CustomMessage extends Message
 {
     /**< @type string The "View" button title. */
-    protected $actionLocKey;
+    protected string $actionLocKey;
 
     /**< @type string A key to an alert-message string in a Localizable.strings file */
-    protected $locKey;
+    protected string $locKey;
 
     /**< @type array Variable string values to appear in place of the format specifiers in loc-key. */
-    protected $locArgs;
+    protected array $locArgs;
 
     /**< @type string The filename of an image file in the application bundle. */
-    protected $launchImage;
-
-    /**< @type string The title of an short looknotification displayed on Apple Watch. */
-    protected $title;
+    protected string $launchImage;
 
     /**< @type string The subtitle of a secondary description */
-    protected $subTitle;
+    protected string $subTitle;
 
     /**
      * Set the "View" button title.
@@ -62,7 +59,7 @@ class CustomMessage extends Message
      * @param  $actionLocKey @type string @optional The "View" button title, default
      *         empty string.
      */
-    public function setActionLocKey($actionLocKey = '')
+    public function setActionLocKey(string $actionLocKey = ''): void
     {
         $this->actionLocKey = $actionLocKey;
     }
@@ -72,7 +69,7 @@ class CustomMessage extends Message
      *
      * @return @type string The "View" button title.
      */
-    public function getActionLocKey()
+    public function getActionLocKey(): string
     {
         return $this->actionLocKey;
     }
@@ -86,7 +83,7 @@ class CustomMessage extends Message
      *
      * @param  $locKey @type string The alert-message string.
      */
-    public function setLocKey($locKey)
+    public function setLocKey(string $locKey): void
     {
         $this->locKey = $locKey;
     }
@@ -96,7 +93,7 @@ class CustomMessage extends Message
      *
      * @return @type string The alert-message string.
      */
-    public function getLocKey()
+    public function getLocKey(): string
     {
         return $this->locKey;
     }
@@ -107,7 +104,7 @@ class CustomMessage extends Message
      *
      * @param  $locArgs @type array The variable string values.
      */
-    public function setLocArgs($locArgs)
+    public function setLocArgs(array $locArgs): void
     {
         $this->locArgs = $locArgs;
     }
@@ -118,7 +115,7 @@ class CustomMessage extends Message
      *
      * @return @type string The variable string values.
      */
-    public function getLocArgs()
+    public function getLocArgs(): string
     {
         return $this->locArgs;
     }
@@ -135,7 +132,7 @@ class CustomMessage extends Message
      *
      * @param  $launchImage @type string The filename of an image file.
      */
-    public function setLaunchImage($launchImage)
+    public function setLaunchImage(string $launchImage): void
     {
         $this->launchImage = $launchImage;
     }
@@ -145,41 +142,18 @@ class CustomMessage extends Message
      *
      * @return @type string The filename of an image file.
      */
-    public function getLaunchImage()
+    public function getLaunchImage(): string
     {
         return $this->launchImage;
     }
 
     /**
-     * Set the title of a short look Apple Watch notification.
-     *
-     * Currently only used when displaying notifications on Apple Watch.
-     * See https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/BasicSupport.html#//apple_ref/doc/uid/TP40014969-CH18-SW2
-     *
-     * @param  $title @type string The title displayed in the short look notification
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get the title of a short look Apple Watch notification.
-     *
-     * @return @type string The title displayed in the short look notification
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-        /**
      * Set the subtitle of a secondary description on iOS 10.0+ and watchOS 3.0+
      * See https://developer.apple.com/reference/usernotifications/unmutablenotificationcontent/1649873-subtitle
      *
      * @param  $subTitle @type string the subtitle of a secondary description
      */
-    public function setSubTitle($subTitle)
+    public function setSubTitle(string $subTitle): void
     {
         $this->subTitle = $subTitle;
     }
@@ -189,7 +163,7 @@ class CustomMessage extends Message
      *
      * @return @type string the subtitle of a secondary description on
      */
-    public function getSubTitle()
+    public function getSubTitle(): string
     {
         return $this->subTitle;
     }
@@ -198,7 +172,7 @@ class CustomMessage extends Message
      *
      * @return @type array The payload dictionary.
      */
-    protected function getPayloadDictionary()
+    protected function getPayloadDictionary(): array
     {
         $payload = parent::getPayloadDictionary();
 

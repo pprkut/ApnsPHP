@@ -43,7 +43,7 @@ class Push extends SharedConfig
     protected const STATUS_CODE_INTERNAL_ERROR = 999;
 
     /**< @type array HTTP/2 Error-response messages. */
-    protected $HTTPErrorResponseMessages = array(
+    protected array $HTTPErrorResponseMessages = array(
         200 => 'Success',
         400 => 'Bad request',
         403 => 'There was an error with the certificate',
@@ -57,19 +57,19 @@ class Push extends SharedConfig
     );
 
     /**< @type integer Send retry times. */
-    protected $sendRetryTimes = 3;
+    protected int $sendRetryTimes = 3;
 
     /**< @type array HTTP/2 Service URLs environments. */
-    protected $HTTPServiceURLs = array(
+    protected array $HTTPServiceURLs = array(
         'https://api.push.apple.com:443', // Production environment
         'https://api.development.push.apple.com:443' // Sandbox environment
     );
 
     /**< @type array Message queue. */
-    protected $messageQueue = array();
+    protected array $messageQueue = array();
 
     /**< @type array Error container. */
-    protected $errors = array();
+    protected array $errors = array();
 
     /**
      * Set the send retry times value.
@@ -79,7 +79,7 @@ class Push extends SharedConfig
      *
      * @param  $retryTimes @type integer Send retry times.
      */
-    public function setSendRetryTimes($retryTimes)
+    public function setSendRetryTimes(int $retryTimes): void
     {
         $this->sendRetryTimes = (int)$retryTimes;
     }
@@ -89,7 +89,7 @@ class Push extends SharedConfig
      *
      * @return @type integer Send retry times.
      */
-    public function getSendRetryTimes()
+    public function getSendRetryTimes(): int
     {
         return $this->sendRetryTimes;
     }
@@ -99,7 +99,7 @@ class Push extends SharedConfig
      *
      * @param  $message @type ApnsPHPMessage The message.
      */
-    public function add(Message $message)
+    public function add(Message $message): void
     {
         $messagePayload = $message->getPayload();
         $recipients = $message->getRecipientsNumber();
@@ -118,7 +118,7 @@ class Push extends SharedConfig
     /**
      * Sends all messages in the message queue to Apple Push Notification Service.
      */
-    public function send()
+    public function send(): void
     {
         if (!$this->hSocket) {
             throw new Exception(
@@ -214,7 +214,7 @@ class Push extends SharedConfig
      * @param  $reply @type string The reply message.
      * @return bool success of API call
      */
-    private function httpSend(Message $message, &$reply)
+    private function httpSend(Message $message, &$reply): bool
     {
         $headers = array('Content-Type: application/json');
         if (!empty($message->getTopic())) {
@@ -267,7 +267,7 @@ class Push extends SharedConfig
      * @param  $empty @type boolean @optional Empty message queue.
      * @return @type array Array of messages left on the queue.
      */
-    public function getMessageQueue($empty = true)
+    public function getMessageQueue(bool $empty = true): array
     {
         $messages = $this->messageQueue;
         if ($empty) {
@@ -284,7 +284,7 @@ class Push extends SharedConfig
      * @return @type array Array of messages not delivered because one or more errors
      *         occurred.
      */
-    public function getErrors($empty = true)
+    public function getErrors(bool $empty = true): array
     {
         $messages = $this->errors;
         if ($empty) {
@@ -299,7 +299,7 @@ class Push extends SharedConfig
      * @param  $errorMessage @type string The Error Message.
      * @return @type array Array with command, statusCode and identifier keys.
      */
-    protected function parseErrorMessage($errorMessage)
+    protected function parseErrorMessage(string $errorMessage): array
     {
         return unpack('Ccommand/CstatusCode/Nidentifier', $errorMessage);
     }
@@ -314,7 +314,7 @@ class Push extends SharedConfig
      *         @return @type boolean True if an error was received.
      * @see readErrorMessage()
      */
-    protected function updateQueue($errorMessages = null)
+    protected function updateQueue(?array $errorMessages = null): bool
     {
         if (!isset($errorMessages)) {
             return false;
@@ -347,9 +347,9 @@ class Push extends SharedConfig
      * @param  $messageId @type integer The Message ID.
      * @param  $error @type boolean @optional Insert the message in the Error container.
      */
-    protected function removeMessageFromQueue($messageId, $error = false)
+    protected function removeMessageFromQueue(int $messageId, bool $error = false): void
     {
-        if (!is_numeric($messageId) || $messageId <= 0) {
+        if ($messageId <= 0) {
             throw new Exception(
                 'Message ID format is not valid.'
             );

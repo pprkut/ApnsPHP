@@ -37,7 +37,7 @@ class PushHttpSendTest extends PushTest
 
         $this->message->expects($this->exactly(2))
                       ->method('getCollapseId')
-                      ->will($this->returnValue(1));
+                      ->will($this->returnValue('1'));
 
         $this->message->expects($this->exactly(2))
                       ->method('getCustomIdentifier')

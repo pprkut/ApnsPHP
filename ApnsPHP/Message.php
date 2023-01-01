@@ -39,54 +39,54 @@ class Message
     protected const APPLE_RESERVED_NAMESPACE = 'aps';
 
     /**< @type boolean If the JSON payload is longer than maximum allowed size, shorts message text. */
-    protected $autoAdjustLongPayload = true;
+    protected ?bool $autoAdjustLongPayload = true;
 
     /**< @type array Recipients device tokens. */
-    protected $deviceTokens = array();
+    protected array $deviceTokens = array();
 
     /**< @type string Alert message to display to the user. */
-    protected $text;
+    protected string $text;
 
     /**< @type string Alert title to display to the user. */
-    protected $title;
+    protected string $title;
 
     /**< @type integer Number to badge the application icon with. */
-    protected $badge;
+    protected int $badge;
 
     /**< @type string Sound to play. */
-    protected $sound;
+    protected string $sound;
 
     /**< @type string notification category. */
-    protected $category;
+    protected string $category;
 
     /**< @type boolean True to initiates the Newsstand background download.
      * @see http://tinyurl.com/ApplePushNotificationNewsstand */
-    protected $contentAvailable;
+    protected ?bool $contentAvailable;
 
     /**< @type boolean True to activate mutable content key support for ios10 rich notifications.
      * @see https://developer.apple.com/reference/usernotifications/unnotificationserviceextension */
-    protected $mutableContent;
+    protected ?bool $mutableContent;
 
     /**< @type string notification thread-id. */
-    protected $threadId;
+    protected string $threadId;
 
     /**< @type mixed Custom properties container. */
-    protected $customProperties;
+    protected array $customProperties = [];
 
     /**< @type integer That message will expire in 604800 seconds (86400 * 7, 7 days) if not successful delivered. */
-    protected $expiryValue = 604800;
+    protected int $expiryValue = 604800;
 
     /**< @type mixed Custom message identifier. */
-    protected $customIdentifier;
+    protected string $customIdentifier;
 
     /**< @type string The topic of the remote notification, which is typically the bundle ID for your app. */
-    protected $topic;
+    protected string $topic;
 
     /**< @type string The collapse ID of the remote notification. */
-    protected $collapseId;
+    protected string $collapseId;
 
     /**< @type int The priority of the remote notification. */
-    protected $priority;
+    protected int $priority;
 
     private ?string $pushType = null;
 
@@ -95,7 +95,7 @@ class Message
      *
      * @param  $deviceToken @type string @optional Recipients device token.
      */
-    public function __construct($deviceToken = null)
+    public function __construct(?string $deviceToken = null)
     {
         if (isset($deviceToken)) {
             $this->addRecipient($deviceToken);
@@ -107,7 +107,7 @@ class Message
      *
      * @param  $deviceToken @type string Recipients device token.
      */
-    public function addRecipient($deviceToken)
+    public function addRecipient(string $deviceToken): void
     {
         if (!preg_match('~^[a-f0-9]{64,}$~i', $deviceToken)) {
             throw new Exception(
@@ -123,7 +123,7 @@ class Message
      * @param  $recipient @type integer @optional Recipient number to return.
      * @return @type string The recipient token at index $recipient.
      */
-    public function getRecipient($recipient = 0)
+    public function getRecipient(int $recipient = 0): string
     {
         if (!isset($this->deviceTokens[$recipient])) {
             throw new Exception(
@@ -139,7 +139,7 @@ class Message
      * @param  $recipient @type integer @optional Recipient number to return.
      * @return Message The message configured with the token at index $recipient.
      */
-    public function selfForRecipient($recipient = 0)
+    public function selfForRecipient(int $recipient = 0)
     {
         if (!isset($this->deviceTokens[$recipient])) {
             throw new Exception(
@@ -159,7 +159,7 @@ class Message
      *
      * @return @type integer Recipient's number.
      */
-    public function getRecipientsNumber()
+    public function getRecipientsNumber(): int
     {
         return count($this->deviceTokens);
     }
@@ -169,7 +169,7 @@ class Message
      *
      * @return @type array Array of all recipients device token.
      */
-    public function getRecipients()
+    public function getRecipients(): array
     {
         return $this->deviceTokens;
     }
@@ -179,7 +179,7 @@ class Message
      *
      * @param  $text @type string An alert message to display to the user.
      */
-    public function setText($text)
+    public function setText(string $text): void
     {
         $this->text = $text;
     }
@@ -189,7 +189,7 @@ class Message
      *
      * @return @type string The alert message to display to the user.
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -200,7 +200,7 @@ class Message
      *
      * @param  $title @type string An alert title to display to the user.
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -210,7 +210,7 @@ class Message
      *
      * @return @type string The alert title to display to the user.
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -220,13 +220,8 @@ class Message
      *
      * @param  $badge @type integer A number to badge the application icon with.
      */
-    public function setBadge($badge)
+    public function setBadge(int $badge): void
     {
-        if (!is_int($badge)) {
-            throw new Exception(
-                "Invalid badge number '{$badge}'"
-            );
-        }
         $this->badge = $badge;
     }
 
@@ -235,7 +230,7 @@ class Message
      *
      * @return @type integer The number to badge the application icon with.
      */
-    public function getBadge()
+    public function getBadge(): int
     {
         return $this->badge;
     }
@@ -246,7 +241,7 @@ class Message
      * @param  $sound @type string @optional A sound to play ('default sound' is
      *         the default sound).
      */
-    public function setSound($sound = 'default')
+    public function setSound(string $sound = 'default'): void
     {
         $this->sound = $sound;
     }
@@ -256,7 +251,7 @@ class Message
      *
      * @return @type string The sound to play.
      */
-    public function getSound()
+    public function getSound(): string
     {
         return $this->sound;
     }
@@ -266,7 +261,7 @@ class Message
      *
      * @param  $category @type string @optional A category for ios8 notification actions.
      */
-    public function setCategory($category = '')
+    public function setCategory(string $category = ''): void
     {
         $this->category = $category;
     }
@@ -276,7 +271,7 @@ class Message
      *
      * @return @type string The notification category
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return $this->category;
     }
@@ -286,7 +281,7 @@ class Message
     *
     * @param  $threadId @type string @optional A thread-id for iOS 12 notification group.
     */
-    public function setThreadId($threadId = '')
+    public function setThreadId(string $threadId = ''): void
     {
         $this->threadId = $threadId;
     }
@@ -296,7 +291,7 @@ class Message
     *
     * @return @type string The notification thread-id
     */
-    public function getThreadId()
+    public function getThreadId(): string
     {
         return $this->threadId;
     }
@@ -307,13 +302,8 @@ class Message
      *
      * @param  $contentAvailable @type boolean True to initiates the Newsstand background download.
      */
-    public function setContentAvailable($contentAvailable = true)
+    public function setContentAvailable(bool $contentAvailable = true): void
     {
-        if (!is_bool($contentAvailable)) {
-            throw new Exception(
-                "Invalid content-available value '{$contentAvailable}'"
-            );
-        }
         $this->contentAvailable = $contentAvailable ? true : null;
     }
 
@@ -322,7 +312,7 @@ class Message
      *
      * @return @type boolean Initiates the Newsstand background download property.
      */
-    public function getContentAvailable()
+    public function getContentAvailable(): bool
     {
         return $this->contentAvailable;
     }
@@ -333,13 +323,8 @@ class Message
      *
      * @param  $mutableContent @type boolean True to enable flag
      */
-    public function setMutableContent($mutableContent = true)
+    public function setMutableContent(bool $mutableContent = true): void
     {
-        if (!is_bool($mutableContent)) {
-            throw new Exception(
-                "Invalid mutable-content value '{$mutableContent}'"
-            );
-        }
         $this->mutableContent = $mutableContent ? true : null;
     }
 
@@ -348,7 +333,7 @@ class Message
      *
      * @return @type boolean mutable-content ios10 rich notifications flag
      */
-    public function getMutableContent()
+    public function getMutableContent(): bool
     {
         return $this->mutableContent;
     }
@@ -359,7 +344,7 @@ class Message
      * @param  $name @type string Custom property name.
      * @param  $value @type mixed Custom property value.
      */
-    public function setCustomProperty($name, $value)
+    public function setCustomProperty(string $name, $value): void
     {
         if (trim($name) == self::APPLE_RESERVED_NAMESPACE) {
             throw new Exception(
@@ -376,11 +361,14 @@ class Message
      *
      * @return @type string The first custom property name.
      */
-    public function getCustomPropertyName()
+    public function getCustomPropertyName(): string
     {
-        if (!is_array($this->customProperties)) {
-            return;
+        if (empty($this->customProperties)) {
+            throw new Exception(
+                "No custom property exists!"
+            );
         }
+
         $keys = array_keys($this->customProperties);
         return $keys[0];
     }
@@ -394,9 +382,12 @@ class Message
      */
     public function getCustomPropertyValue()
     {
-        if (!is_array($this->customProperties)) {
-            return;
+        if (empty($this->customProperties)) {
+            throw new Exception(
+                "No custom property exists!"
+            );
         }
+
         $aKeys = array_keys($this->customProperties);
         return $this->customProperties[$aKeys[0]];
     }
@@ -406,11 +397,8 @@ class Message
      *
      * @return @type array All properties names.
      */
-    public function getCustomPropertyNames()
+    public function getCustomPropertyNames(): array
     {
-        if (!is_array($this->customProperties)) {
-            return array();
-        }
         return array_keys($this->customProperties);
     }
 
@@ -420,7 +408,7 @@ class Message
      * @param  $name @type string Custom property name.
      * @return @type string The custom property value.
      */
-    public function getCustomProperty($name)
+    public function getCustomProperty(string $name)
     {
         if (!array_key_exists($name, $this->customProperties)) {
             throw new Exception(
@@ -436,9 +424,9 @@ class Message
      * @param  $autoAdjust @type boolean If true a long payload is shorted cutting
      *         long text value.
      */
-    public function setAutoAdjustLongPayload($autoAdjust)
+    public function setAutoAdjustLongPayload(bool $autoAdjust): void
     {
-        $this->autoAdjustLongPayload = (bool)$autoAdjust;
+        $this->autoAdjustLongPayload = $autoAdjust;
     }
 
     /**
@@ -446,7 +434,7 @@ class Message
      *
      * @return @type boolean The auto-adjust long payload value.
      */
-    public function getAutoAdjustLongPayload()
+    public function getAutoAdjustLongPayload(): bool
     {
         return $this->autoAdjustLongPayload;
     }
@@ -457,7 +445,7 @@ class Message
      *
      * @return @type string JSON-encoded payload.
      */
-    public function __toString()
+    public function __toString(): string
     {
         try {
             $JSONPayload = $this->getPayload();
@@ -474,7 +462,7 @@ class Message
      *
      * @return @type array The payload dictionary.
      */
-    protected function getPayloadDictionary()
+    protected function getPayloadDictionary(): array
     {
         $payload[self::APPLE_RESERVED_NAMESPACE] = array();
 
@@ -509,10 +497,8 @@ class Message
             $payload[self::APPLE_RESERVED_NAMESPACE]['thread-id'] = (string)$this->threadId;
         }
 
-        if (is_array($this->customProperties)) {
-            foreach ($this->customProperties as $propertyName => $propertyValue) {
-                $payload[$propertyName] = $propertyValue;
-            }
+        foreach ($this->customProperties as $propertyName => $propertyValue) {
+            $payload[$propertyName] = $propertyValue;
         }
 
         return $payload;
@@ -523,7 +509,7 @@ class Message
      *
      * @return string JSON-encoded payload.
      */
-    public function getPayload()
+    public function getPayload(): string
     {
         $JSON = json_encode(
             $this->getPayloadDictionary(),
@@ -571,13 +557,8 @@ class Message
      * @param  $expiryValue @type integer This message will expire in N seconds
      *         if not successful delivered.
      */
-    public function setExpiry($expiryValue)
+    public function setExpiry(int $expiryValue): void
     {
-        if (!is_int($expiryValue)) {
-            throw new Exception(
-                "Invalid seconds number '{$expiryValue}'"
-            );
-        }
         $this->expiryValue = $expiryValue;
     }
 
@@ -586,7 +567,7 @@ class Message
      *
      * @return @type integer The expire message value (in seconds).
      */
-    public function getExpiry()
+    public function getExpiry(): int
     {
         return $this->expiryValue;
     }
@@ -603,7 +584,7 @@ class Message
      *
      * @param  $customIdentifier @type mixed The custom message identifier.
      */
-    public function setCustomIdentifier($customIdentifier)
+    public function setCustomIdentifier(string $customIdentifier): void
     {
         if (!preg_match('~[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}~i', $customIdentifier)) {
             throw new Exception('Identifier must be a UUID');
@@ -616,7 +597,7 @@ class Message
      *
      * @return @type mixed The custom message identifier.
      */
-    public function getCustomIdentifier()
+    public function getCustomIdentifier(): string
     {
         return $this->customIdentifier;
     }
@@ -627,7 +608,7 @@ class Message
      *
      * @param  $topic @type string The topic of the remote notification.
      */
-    public function setTopic($topic)
+    public function setTopic(string $topic): void
     {
         $this->topic = $topic;
     }
@@ -637,7 +618,7 @@ class Message
      *
      * @return @type string The topic of the remote notification.
      */
-    public function getTopic()
+    public function getTopic(): string
     {
         return $this->topic;
     }
@@ -647,7 +628,7 @@ class Message
      *
      * @param int $priority The priority of the remote notification.
      */
-    public function setPriority($priority)
+    public function setPriority(int $priority): void
     {
         if (!in_array($priority, [5, 10])) {
             throw new Exception('Invalid priority');
@@ -661,7 +642,7 @@ class Message
      *
      * @return int The priority of the remote notification.
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
@@ -671,7 +652,7 @@ class Message
      *
      * @param string $collapseId The collapse ID of the remote notification.
      */
-    public function setCollapseId($collapseId)
+    public function setCollapseId(string $collapseId): void
     {
         $this->collapseId = $collapseId;
     }
@@ -681,7 +662,7 @@ class Message
      *
      * @return int The collapse ID of the remote notification.
      */
-    public function getCollapseId()
+    public function getCollapseId(): string
     {
         return $this->collapseId;
     }

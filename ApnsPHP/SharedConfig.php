@@ -63,46 +63,46 @@ abstract class SharedConfig
     public const SOCKET_SELECT_TIMEOUT = 1000000;
 
     /**< @type array Container for HTTP/2 service URLs environments. */
-    protected $HTTPServiceURLs = array();
+    protected array $HTTPServiceURLs = array();
 
     /**< @type integer Active environment. */
-    protected $environment;
+    protected int $environment;
 
     /**< @type integer Connect timeout in seconds. */
-    protected $connectTimeout;
+    protected int $connectTimeout;
 
     /**< @type integer Connect retry times. */
-    protected $connectRetryTimes = 3;
+    protected int $connectRetryTimes = 3;
 
     /**< @type string Provider certificate file with key (Bundled PEM). */
-    protected $providerCertFile;
+    protected string $providerCertFile;
 
     /**< @type string Provider certificate passphrase. */
-    protected $providerCertPassphrase;
+    protected string $providerCertPassphrase;
 
     /**< @type string|null Provider Authentication token. */
-    protected $providerToken;
+    protected ?string $providerToken;
 
     /**< @type string|null Apple Team Identifier. */
-    protected $providerTeamId;
+    protected ?string $providerTeamId;
 
     /**< @type string|null Apple Key Identifier. */
-    protected $providerKeyId;
+    protected ?string $providerKeyId;
 
     /**< @type string Root certification authority file. */
-    protected $rootCertAuthorityFile;
+    protected string $rootCertAuthorityFile;
 
     /**< @type integer Write interval in micro seconds. */
-    protected $writeInterval;
+    protected int $writeInterval;
 
     /**< @type integer Connect retry interval in micro seconds. */
-    protected $connectRetryInterval;
+    protected int $connectRetryInterval;
 
     /**< @type integer Socket select timeout in micro seconds. */
-    protected $socketSelectTimeout;
+    protected int $socketSelectTimeout;
 
     /**< @type Psr\Log\LoggerInterface Logger. */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**< @type resource SSL Socket. */
     protected $hSocket;
@@ -153,17 +153,6 @@ abstract class SharedConfig
      */
     public function setLogger(LoggerInterface $logger)
     {
-        if (!is_object($logger)) {
-            throw new Exception(
-                "The logger should be an instance of 'Psr\Log\LoggerInterface'"
-            );
-        }
-        if (!($logger instanceof LoggerInterface)) {
-            throw new Exception(
-                "Unable to use an instance of '" . get_class($logger) . "' as logger: " .
-                "a logger must implements 'Psr\Log\LoggerInterface'."
-            );
-        }
         $this->logger = $logger;
     }
 
@@ -172,7 +161,7 @@ abstract class SharedConfig
      *
      * @return @type Psr\Log\LoggerInterface Current Logger instance.
      */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
@@ -235,7 +224,7 @@ abstract class SharedConfig
      *
      * @return @type string Current Root Certification Authority file path.
      */
-    public function getCertificateAuthority()
+    public function getCertificateAuthority(): string
     {
         return $this->rootCertAuthorityFile;
     }
@@ -259,7 +248,7 @@ abstract class SharedConfig
      *
      * @return @type integer Write interval in micro seconds.
      */
-    public function getWriteInterval()
+    public function getWriteInterval(): int
     {
         return $this->writeInterval;
     }
@@ -282,7 +271,7 @@ abstract class SharedConfig
      *
      * @return @type integer Connection timeout in seconds.
      */
-    public function getConnectTimeout()
+    public function getConnectTimeout(): int
     {
         return $this->connectTimeout;
     }
@@ -305,7 +294,7 @@ abstract class SharedConfig
      *
      * @return @type integer Connect retry times.
      */
-    public function getConnectRetryTimes()
+    public function getConnectRetryTimes(): int
     {
         return $this->connectRetryTimes;
     }
@@ -330,7 +319,7 @@ abstract class SharedConfig
      *
      * @return @type integer Connect retry interval in micro seconds.
      */
-    public function getConnectRetryInterval()
+    public function getConnectRetryInterval(): int
     {
         return $this->connectRetryInterval;
     }
@@ -362,7 +351,7 @@ abstract class SharedConfig
      *
      * @return @type integer Socket select timeout in micro seconds.
      */
-    public function getSocketSelectTimeout()
+    public function getSocketSelectTimeout(): int
     {
         return $this->socketSelectTimeout;
     }
@@ -376,7 +365,7 @@ abstract class SharedConfig
      * @see setConnectRetryInterval
      * @see setConnectRetryTimes
      */
-    public function connect()
+    public function connect(): void
     {
         $connected = false;
         $retry = 0;
@@ -404,7 +393,7 @@ abstract class SharedConfig
      *
      * @return @type boolean True if successful disconnected.
      */
-    public function disconnect()
+    public function disconnect(): bool
     {
         if (is_resource($this->hSocket) || is_object($this->hSocket)) {
             $this->logger()->info('Disconnected.');
@@ -420,7 +409,7 @@ abstract class SharedConfig
      *
      * @return @type boolean True if successful initialized.
      */
-    protected function httpInit()
+    protected function httpInit(): bool
     {
         $this->logger()->info("Trying to initialize HTTP/2 backend...");
 
@@ -470,7 +459,7 @@ abstract class SharedConfig
     /**
      * @return string
      */
-    protected function getJsonWebToken()
+    protected function getJsonWebToken(): string
     {
         $key = InMemory::file($this->providerCertFile);
         return Configuration::forUnsecuredSigner()->builder()
@@ -484,7 +473,7 @@ abstract class SharedConfig
     /**
      * Return the Logger (with lazy loading)
      */
-    protected function logger()
+    protected function logger(): LoggerInterface
     {
         if (!isset($this->logger)) {
             $this->logger = new EmbeddedLogger();
