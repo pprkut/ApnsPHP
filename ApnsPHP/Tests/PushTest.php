@@ -24,7 +24,7 @@ use ReflectionClass;
 abstract class PushTest extends LunrBaseTest
 {
     /**
-     * Mock instance of the EmbeddedLogger class.
+     * Mock instance of a Logger class.
      * @var LoggerInterface
      */
     protected $logger;
@@ -46,7 +46,11 @@ abstract class PushTest extends LunrBaseTest
                               ->disableOriginalConstructor()
                               ->getMock();
 
-        $this->class = new Push(Push::ENVIRONMENT_SANDBOX, 'server_certificates_bundle_sandbox.pem');
+        $this->class = new Push(
+            Push::ENVIRONMENT_SANDBOX,
+            'server_certificates_bundle_sandbox.pem',
+            $this->logger,
+        );
 
         $this->reflection = new ReflectionClass('ApnsPHP\Push');
     }

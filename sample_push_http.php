@@ -28,10 +28,19 @@ error_reporting(-1);
 // Using Autoload all classes are loaded on-demand
 require_once 'vendor/autoload.php';
 
+class SampleLogger extends \Psr\Log\AbstractLogger
+{
+	public function log($level, $message, array $context = array())
+	{
+		printf("%s: %s ApnsPHP[%d]: %s\n", date('r'), strtoupper($level), getmypid(), trim($message));
+	}
+}
+
 // Instantiate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
 	\ApnsPHP\Push::ENVIRONMENT_SANDBOX,
-	'UniversalPushNotificationClientSSLCertificate.p8'
+	'UniversalPushNotificationClientSSLCertificate.p8',
+	new SampleLogger(),
 );
 
 $push->setTeamId('sgfdgfdfgd');

@@ -28,10 +28,19 @@ error_reporting(-1);
 // Using Composer autoload all classes are loaded on-demand
 require_once 'vendor/autoload.php';
 
+class SampleLogger extends \Psr\Log\AbstractLogger
+{
+	public function log($level, $message, array $context = array())
+	{
+		printf("%s: %s ApnsPHP[%d]: %s\n", date('r'), strtoupper($level), getmypid(), trim($message));
+	}
+}
+
 // Instanciate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
 	\ApnsPHP\Push::ENVIRONMENT_SANDBOX,
-	'server_certificates_bundle_sandbox.pem'
+	'server_certificates_bundle_sandbox.pem',
+	new SampleLogger(),
 );
 
 // Set the Root Certificate Autority to verify the Apple remote peer

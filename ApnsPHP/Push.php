@@ -21,7 +21,6 @@
 namespace ApnsPHP;
 
 use DateTimeImmutable;
-use ApnsPHP\Log\EmbeddedLogger;
 use ApnsPHP\Push\Exception;
 use Psr\Log\LoggerInterface;
 use Lcobucci\JWT\Signer\Key\InMemory;
@@ -141,8 +140,9 @@ class Push
      * @param  $environment @type integer Environment.
      * @param  $providerCertificateFile @type string Provider certificate file
      *         with key (Bundled PEM).
+     * @param  $logger $type LoggerInterface A Logger implementing PSR-3
      */
-    public function __construct(int $environment, string $providerCertificateFile)
+    public function __construct(int $environment, string $providerCertificateFile, LoggerInterface $logger)
     {
         if ($environment != self::ENVIRONMENT_PRODUCTION && $environment != self::ENVIRONMENT_SANDBOX) {
             throw new Exception(
@@ -162,6 +162,8 @@ class Push
         $this->writeInterval = self::WRITE_INTERVAL;
         $this->connectRetryInterval = self::CONNECT_RETRY_INTERVAL;
         $this->socketSelectTimeout = self::SOCKET_SELECT_TIMEOUT;
+
+        $this->logger = $logger;
     }
 
     /**
@@ -185,36 +187,6 @@ class Push
     public function getSendRetryTimes(): int
     {
         return $this->sendRetryTimes;
-    }
-
-    /**
-     * Set the Logger instance to use for logging purpose.
-     *
-     * The default logger is EmbeddedLogger, an instance
-     * of LoggerInterface that simply print to standard
-     * output log messages.
-     *
-     * To set a custom logger you have to implement LoggerInterface
-     * and use setLogger, otherwise standard logger will be used.
-     *
-     * @param  $logger @type LoggerInterface Logger instance.
-     * @see Psr\Log\LoggerInterface
-     * @see EmbeddedLogger
-     *
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
-    /**
-     * Get the Logger instance.
-     *
-     * @return @type Psr\Log\LoggerInterface Current Logger instance.
-     */
-    public function getLogger(): LoggerInterface
-    {
-        return $this->logger;
     }
 
     /**
@@ -424,11 +396,11 @@ class Push
             try {
                 $connected = $this->httpInit();
             } catch (Exception $e) {
-                $this->logger()->error($e->getMessage());
+                $this->logger->error($e->getMessage());
                 if ($retry >= $this->connectRetryTimes) {
                     throw $e;
                 } else {
-                    $this->logger()->info(
+                    $this->logger->info(
                         "Retry to connect (" . ($retry + 1) .
                         "/{$this->connectRetryTimes})..."
                     );
@@ -447,7 +419,7 @@ class Push
     public function disconnect(): bool
     {
         if (is_resource($this->hSocket) || is_object($this->hSocket)) {
-            $this->logger()->info('Disconnected.');
+            $this->logger->info('Disconnected.');
             curl_close($this->hSocket);
             return true;
         }
@@ -462,7 +434,7 @@ class Push
      */
     protected function httpInit(): bool
     {
-        $this->logger()->info("Trying to initialize HTTP/2 backend...");
+        $this->logger->info("Trying to initialize HTTP/2 backend...");
 
         $this->hSocket = curl_init();
         if ($this->hSocket === false) {
@@ -485,14 +457,14 @@ class Push
         );
 
         if (strpos($this->providerCertFile, '.pem') !== false) {
-            $this->logger()->info("Initializing HTTP/2 backend with certificate.");
+            $this->logger->info("Initializing HTTP/2 backend with certificate.");
             $curlOpts[CURLOPT_SSLCERT] = $this->providerCertFile;
             $curlOpts[CURLOPT_SSLCERTPASSWD] = empty($this->providerCertPassphrase) ?
                 null : $this->providerCertPassphrase;
         }
 
         if (strpos($this->providerCertFile, '.p8') !== false) {
-            $this->logger()->info("Initializing HTTP/2 backend with key.");
+            $this->logger->info("Initializing HTTP/2 backend with key.");
             $this->providerToken = $this->getJsonWebToken();
         }
 
@@ -502,7 +474,7 @@ class Push
             );
         }
 
-        $this->logger()->info("Initialized HTTP/2 backend.");
+        $this->logger->info("Initialized HTTP/2 backend.");
 
         return true;
     }
@@ -519,18 +491,6 @@ class Push
             ->withHeader('kid', $this->providerKeyId)
             ->getToken(Sha256::create(), $key)
             ->toString();
-    }
-
-    /**
-     * Return the Logger (with lazy loading)
-     */
-    protected function logger(): LoggerInterface
-    {
-        if (!isset($this->logger)) {
-            $this->logger = new EmbeddedLogger();
-        }
-
-        return $this->logger;
     }
 
     /**
@@ -574,7 +534,7 @@ class Push
         $this->errors = array();
         $run = 1;
         while (($messageAmount = count($this->messageQueue)) > 0) {
-            $this->logger()->info("Sending messages queue, run #{$run}: $messageAmount message(s) left in queue.");
+            $this->logger->info("Sending messages queue, run #{$run}: $messageAmount message(s) left in queue.");
 
             $error = false;
             foreach ($this->messageQueue as $key => &$messages) {
@@ -593,14 +553,14 @@ class Push
                 if (!empty($messages['ERRORS'])) {
                     foreach ($messages['ERRORS'] as $errors) {
                         if ($errors['statusCode'] == 0 || $errors['statusCode'] == 200) {
-                            $this->logger()->info(
+                            $this->logger->info(
                                 "Message ID {$key} {$customIdentifier} has no error ({$errors['statusCode']}),
                                  removing from queue..."
                             );
                             $this->removeMessageFromQueue($key);
                             continue 2;
                         } elseif ($errors['statusCode'] > 200 && $errors['statusCode'] <= 413) {
-                            $this->logger()->warning(
+                            $this->logger->warning(
                                 "Message ID {$key} {$customIdentifier} has an unrecoverable error
                                  ({$errors['statusCode']}), removing from queue without retrying..."
                             );
@@ -609,7 +569,7 @@ class Push
                         }
                     }
                     if (($errorAmount = count($messages['ERRORS'])) >= $this->sendRetryTimes) {
-                        $this->logger()->warning(
+                        $this->logger->warning(
                             "Message ID {$key} {$customIdentifier} has {$errorAmount} errors, removing from queue..."
                         );
                         $this->removeMessageFromQueue($key, true);
@@ -618,7 +578,7 @@ class Push
                 }
 
                 $messageBytes = strlen($message->getPayload());
-                $this->logger()->debug("Sending message ID {$key} {$customIdentifier} (" . ($errorAmount + 1) .
+                $this->logger->debug("Sending message ID {$key} {$customIdentifier} (" . ($errorAmount + 1) .
                                         "/{$this->sendRetryTimes}): {$messageBytes} bytes.");
 
                 $errorMessage = null;
@@ -747,7 +707,7 @@ class Push
             return false;
         }
 
-        $this->logger()->error('Unable to send message ID ' .
+        $this->logger->error('Unable to send message ID ' .
             $errorMessages['identifier'] . ': ' .
             $errorMessages['statusMessage'] . ' (' . $errorMessages['statusCode'] . ').');
 
