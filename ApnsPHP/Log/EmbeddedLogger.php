@@ -26,7 +26,7 @@ use Psr\Log\AbstractLogger;
  * A simple logger.
  *
  * This simple logger implements the Log Interface and is the default logger for
- * all SharedConfig based class.
+ * ApnsPHP.
  *
  * This simple logger outputs The Message to standard output prefixed with date,
  * service name (ApplePushNotificationService) and Process ID (PID).

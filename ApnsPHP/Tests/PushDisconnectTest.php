@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contains the SharedConfigDisconnectTest class.
+ * This file contains the PushDisconnectTest class.
  *
  * @package ApnsPHP
  * @author  Martijn van Berkum <m.vanberkum@m2mobi.com>
@@ -12,22 +12,19 @@ namespace ApnsPHP\Tests;
 /**
  * This class contains tests for the disconnect function
  *
- * @covers \ApnsPHP\SharedConfig
+ * @covers \ApnsPHP\Push
  */
-class SharedConfigDisconnectTest extends SharedConfigTest
+class PushDisconnectTest extends PushTest
 {
     /**
      * Test that disconnect() disconnects successfully
      *
-     * @covers \ApnsPHP\SharedConfig::disconnect
+     * @covers \ApnsPHP\Push::disconnect
      */
     public function testDisconnectSuccess()
     {
         $this->set_reflection_property_value('hSocket', curl_init());
-
-        $this->class->expects($this->once())
-                    ->method('logger')
-                    ->will($this->returnValue($this->logger));
+        $this->set_reflection_property_value('logger', $this->logger);
 
         $this->logger->expects($this->once())
                      ->method('info')
@@ -41,7 +38,7 @@ class SharedConfigDisconnectTest extends SharedConfigTest
     /**
      * Test that disconnect() disconnects returns false if it isn't connected to begin with
      *
-     * @covers \ApnsPHP\SharedConfig::disconnect
+     * @covers \ApnsPHP\Push::disconnect
      */
     public function testDisconnectReturnsFalse()
     {

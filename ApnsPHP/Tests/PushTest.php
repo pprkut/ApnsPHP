@@ -9,7 +9,10 @@
 
 namespace ApnsPHP\Tests;
 
+use ApnsPHP\Message;
+use ApnsPHP\Push;
 use Lunr\Halo\LunrBaseTest;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
 /**
@@ -22,13 +25,13 @@ abstract class PushTest extends LunrBaseTest
 {
     /**
      * Mock instance of the EmbeddedLogger class.
-     * @var \ApnsPHP\Log\EmbeddedLogger
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * Mock instance of the Message class.
-     * @var \ApnsPHP\Message
+     * @var Message
      */
     protected $message;
 
@@ -37,24 +40,13 @@ abstract class PushTest extends LunrBaseTest
      */
     public function setUp(): void
     {
-        $this->logger = $this->getMockBuilder('ApnsPHP\Log\EmbeddedLogger')->getMock();
+        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->message = $this->getMockBuilder('ApnsPHP\Message')
                               ->disableOriginalConstructor()
                               ->getMock();
 
-        $methods = [
-            'logger',
-            'updateQueue',
-            'disconnect',
-            'connect',
-            'parseErrorMessage'
-        ];
-
-        $this->class = $this->getMockBuilder('ApnsPHP\Push')
-                            ->disableOriginalConstructor()
-                            ->onlyMethods($methods)
-                            ->getMock();
+        $this->class = new Push(Push::ENVIRONMENT_SANDBOX, 'server_certificates_bundle_sandbox.pem');
 
         $this->reflection = new ReflectionClass('ApnsPHP\Push');
     }

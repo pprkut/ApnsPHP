@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: Setup fake certificates
+        run: |
+          touch entrust_root_certification_authority.pem
+          touch server_certificates_bundle_sandbox.pem
+
       - name: Run PHPUnit
         run: phpunit -c phpunit.xml
 
@@ -71,7 +76,7 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: Setup sample
+      - name: Setup fake certificates
         run: |
           touch entrust_root_certification_authority.pem
           touch server_certificates_bundle_sandbox.pem

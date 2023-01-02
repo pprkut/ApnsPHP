@@ -49,29 +49,30 @@ class PushUpdateQueueTest extends PushTest
             3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ]
         ];
 
-        $resultMessage = [ 3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [$errorMessage] ]];
+        $resultMessage = [ 3 => [ 'MESSAGE' => $this->message, 'ERRORS' => [ $errorMessage ] ]];
 
         $this->set_reflection_property_value('messageQueue', $queue);
+        $this->set_reflection_property_value('logger', $this->logger);
 
-        $this->class->expects($this->once())
-                    ->method('logger')
-                    ->will($this->returnValue($this->logger));
+        $this->logger->expects($this->exactly(3))
+                     ->method('info')
+                     ->withConsecutive(
+                         [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
+                         [ 'Initialized HTTP/2 backend.' ],
+                     );
+
+        $this->logger->expects($this->never())
+                     ->method('warning');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('Unable to send message ID 3: Missing payload (4).');
 
-        $this->class->expects($this->once())
-                    ->method('disconnect')
-                    ->will($this->returnValue(true));
-
-        $this->class->expects($this->once())
-                    ->method('connect');
-
         $method = $this->get_accessible_reflection_method('updateQueue');
         $result = $method->invokeArgs($this->class, [ $errorMessage ]);
 
-        $messageQueue  = $this->get_accessible_reflection_property('messageQueue')->getValue($this->class);
+        $messageQueue  = $this->get_reflection_property_value('messageQueue');
 
         $this->assertTrue($result);
         $this->assertEquals($resultMessage, $messageQueue);
@@ -98,21 +99,22 @@ class PushUpdateQueueTest extends PushTest
         ];
 
         $this->set_reflection_property_value('messageQueue', $queue);
+        $this->set_reflection_property_value('logger', $this->logger);
 
-        $this->class->expects($this->once())
-                    ->method('logger')
-                    ->will($this->returnValue($this->logger));
+        $this->logger->expects($this->exactly(3))
+                     ->method('info')
+                     ->withConsecutive(
+                         [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
+                         [ 'Initialized HTTP/2 backend.' ],
+                     );
+
+        $this->logger->expects($this->never())
+                     ->method('warning');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('Unable to send message ID 2: Missing payload (4).');
-
-        $this->class->expects($this->once())
-                    ->method('disconnect')
-                    ->will($this->returnValue(true));
-
-        $this->class->expects($this->once())
-                    ->method('connect');
 
         $method = $this->get_accessible_reflection_method('updateQueue');
         $result = $method->invoke($this->class, $errorMessage);

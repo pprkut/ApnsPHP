@@ -30,7 +30,7 @@ require_once 'vendor/autoload.php';
 
 // Instantiate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
-	\ApnsPHP\SharedConfig::ENVIRONMENT_SANDBOX,
+	\ApnsPHP\Push::ENVIRONMENT_SANDBOX,
 	'server_certificates_bundle_sandbox.pem'
 );
 
