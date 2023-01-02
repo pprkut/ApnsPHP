@@ -1,21 +1,8 @@
 <?php
 
 /**
- * @file
- * CustomMessage class definition.
- *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://code.google.com/p/apns-php/wiki/License
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to aldo.armiento@gmail.com so we can send you a copy immediately.
- *
- * @author (C) 2010 Aldo Armiento (aldo.armiento@gmail.com)
- * @version $Id$
+ * @license BSD-2-Clause
+ * @author  (C) 2010 Aldo Armiento (aldo.armiento@gmail.com)
  */
 
 namespace ApnsPHP\Message;
@@ -32,19 +19,34 @@ use ApnsPHP\Message;
  */
 class CustomMessage extends Message
 {
-    /**< @type string The "View" button title. */
+    /**
+     * The "View" button title.
+     * @var string
+     */
     protected string $actionLocKey;
 
-    /**< @type string A key to an alert-message string in a Localizable.strings file */
+    /**
+     * A key to an alert-message string in a Localizable.strings file
+     * @var string
+     */
     protected string $locKey;
 
-    /**< @type array Variable string values to appear in place of the format specifiers in loc-key. */
+    /**
+     * Variable string values to appear in place of the format specifiers in loc-key.
+     * @var array
+     */
     protected array $locArgs;
 
-    /**< @type string The filename of an image file in the application bundle. */
+    /**
+     * The filename of an image file in the application bundle.
+     * @var string
+     */
     protected string $launchImage;
 
-    /**< @type string The subtitle of a secondary description */
+    /**
+     * The subtitle of a secondary description
+     * @var string
+     */
     protected string $subTitle;
 
     /**
@@ -56,8 +58,7 @@ class CustomMessage extends Message
      * empty string, the system displays an alert with a single OK button that simply
      * dismisses the alert when tapped.
      *
-     * @param  $actionLocKey @type string @optional The "View" button title, default
-     *         empty string.
+     * @param string $actionLocKey The "View" button title, default empty string.
      */
     public function setActionLocKey(string $actionLocKey = ''): void
     {
@@ -67,7 +68,7 @@ class CustomMessage extends Message
     /**
      * Get the "View" button title.
      *
-     * @return @type string The "View" button title.
+     * @return string The "View" button title.
      */
     public function getActionLocKey(): string
     {
@@ -81,7 +82,7 @@ class CustomMessage extends Message
      * The key string can be formatted with %@ and %n$@ specifiers to take the variables
      * specified in loc-args.
      *
-     * @param  $locKey @type string The alert-message string.
+     * @param string $locKey The alert-message string.
      */
     public function setLocKey(string $locKey): void
     {
@@ -91,7 +92,7 @@ class CustomMessage extends Message
     /**
      * Get the alert-message string in Localizable.strings file.
      *
-     * @return @type string The alert-message string.
+     * @return string The alert-message string.
      */
     public function getLocKey(): string
     {
@@ -102,7 +103,7 @@ class CustomMessage extends Message
      * Set the variable string values to appear in place of the format specifiers
      * in loc-key.
      *
-     * @param  $locArgs @type array The variable string values.
+     * @param array $locArgs The variable string values.
      */
     public function setLocArgs(array $locArgs): void
     {
@@ -113,7 +114,7 @@ class CustomMessage extends Message
      * Get the variable string values to appear in place of the format specifiers
      * in loc-key.
      *
-     * @return @type string The variable string values.
+     * @return string The variable string values.
      */
     public function getLocArgs(): string
     {
@@ -130,7 +131,7 @@ class CustomMessage extends Message
      * key in the application’s Info.plist file, or falls back to Default.png.
      * This property was added in iOS 4.0.
      *
-     * @param  $launchImage @type string The filename of an image file.
+     * @param string $launchImage The filename of an image file.
      */
     public function setLaunchImage(string $launchImage): void
     {
@@ -140,7 +141,7 @@ class CustomMessage extends Message
     /**
      * Get the filename of an image file in the application bundle.
      *
-     * @return @type string The filename of an image file.
+     * @return string The filename of an image file.
      */
     public function getLaunchImage(): string
     {
@@ -151,7 +152,7 @@ class CustomMessage extends Message
      * Set the subtitle of a secondary description on iOS 10.0+ and watchOS 3.0+
      * See https://developer.apple.com/reference/usernotifications/unmutablenotificationcontent/1649873-subtitle
      *
-     * @param  $subTitle @type string the subtitle of a secondary description
+     * @param string $subTitle The subtitle of a secondary description
      */
     public function setSubTitle(string $subTitle): void
     {
@@ -161,7 +162,7 @@ class CustomMessage extends Message
     /**
      * Get the subtitle of a secondary description on iOS 10.0+ and watchOS 3.0+
      *
-     * @return @type string the subtitle of a secondary description on
+     * @return string The subtitle of a secondary description on
      */
     public function getSubTitle(): string
     {
@@ -170,7 +171,7 @@ class CustomMessage extends Message
     /**
      * Get the payload dictionary.
      *
-     * @return @type array The payload dictionary.
+     * @return array The payload dictionary.
      */
     protected function getPayloadDictionary(): array
     {

@@ -1,21 +1,8 @@
 <?php
 
 /**
- * @file
- * Push class definition.
- *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://code.google.com/p/apns-php/wiki/License
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to aldo.armiento@gmail.com so we can send you a copy immediately.
- *
- * @author (C) 2010 Aldo Armiento (aldo.armiento@gmail.com)
- * @version $Id$
+ * @license BSD-2-Clause
+ * @author  (C) 2010 Aldo Armiento (aldo.armiento@gmail.com)
  */
 
 namespace ApnsPHP;
@@ -35,77 +22,154 @@ use Lcobucci\JWT\Configuration;
  */
 class Push
 {
-    /**< @type integer Production environment. */
+    /**
+     * Production environment.
+     * @var int
+     */
     public const ENVIRONMENT_PRODUCTION = 0;
 
-    /**< @type integer Sandbox environment. */
+    /**
+     * Sandbox environment.
+     * @var int
+     */
     public const ENVIRONMENT_SANDBOX = 1;
 
-    /**< @type integer Device token length. */
+    /**
+     * Device token length.
+     * @var int
+     */
     public const DEVICE_BINARY_SIZE = 32;
 
-    /**< @type integer Default write interval in micro seconds. */
+    /**
+     * Default write interval in micro seconds.
+     * @var int
+     */
     public const WRITE_INTERVAL = 10000;
 
-    /**< @type integer Default connect retry interval in micro seconds. */
+    /**
+     * Default connect retry interval in micro seconds.
+     * @var int
+     */
     public const CONNECT_RETRY_INTERVAL = 1000000;
 
-    /**< @type integer Default socket select timeout in micro seconds. */
+    /**
+     * Default socket select timeout in micro seconds.
+     * @var int
+     */
     public const SOCKET_SELECT_TIMEOUT = 1000000;
 
-    /**< @type integer Payload command. */
+    /**
+     * Payload command.
+     * @var int
+     */
     protected const COMMAND_PUSH = 1;
 
-    /**< @type integer Error-response packet size. */
+    /**
+     * Error-response packet size.
+     * @var int
+     */
     protected const ERROR_RESPONSE_SIZE = 6;
 
-    /**< @type integer Error-response command code. */
+    /**
+     * Error-response command code.
+     * @var int
+     */
     protected const ERROR_RESPONSE_COMMAND = 8;
 
-    /**< @type integer Status code for internal error (not Apple). */
+    /**
+     * Status code for internal error (not Apple).
+     * @var int
+     */
     protected const STATUS_CODE_INTERNAL_ERROR = 999;
 
-    /**< @type integer Active environment. */
+    /**
+     * Active environment.
+     * @var int
+     */
     protected int $environment;
 
-    /**< @type integer Connect timeout in seconds. */
+    /**
+     * Connect timeout in seconds.
+     * @var int
+     */
     protected int $connectTimeout;
 
-    /**< @type integer Connect retry times. */
+    /**
+     * Connect retry times.
+     * @var int
+     */
     protected int $connectRetryTimes = 3;
 
-    /**< @type string Provider certificate file with key (Bundled PEM). */
+    /**
+     * Provider certificate file with key (Bundled PEM).
+     * @var string
+     */
     protected string $providerCertFile;
 
-    /**< @type string Provider certificate passphrase. */
+    /**
+     * Provider certificate passphrase.
+     * @var string
+     */
     protected string $providerCertPassphrase;
 
-    /**< @type string|null Provider Authentication token. */
+    /**
+     * Provider Authentication token.
+     * @var string|null
+     */
     protected ?string $providerToken;
 
-    /**< @type string|null Apple Team Identifier. */
+    /**
+     * Apple Team Identifier.
+     * @var string|null
+     */
     protected ?string $providerTeamId;
 
-    /**< @type string|null Apple Key Identifier. */
+    /**
+     * Apple Key Identifier.
+     * @var string|null
+     */
     protected ?string $providerKeyId;
 
-    /**< @type string Root certification authority file. */
+    /**
+     * Root certification authority file.
+     * @var string
+     */
     protected string $rootCertAuthorityFile;
 
-    /**< @type integer Write interval in micro seconds. */
+    /**
+     * Write interval in micro seconds.
+     * @var int
+     */
     protected int $writeInterval;
 
-    /**< @type integer Connect retry interval in micro seconds. */
+    /**
+     * Connect retry interval in micro seconds.
+     * @var int
+     */
     protected int $connectRetryInterval;
 
-    /**< @type integer Socket select timeout in micro seconds. */
+    /**
+     * Socket select timeout in micro seconds.
+     * @var int
+     */
     protected int $socketSelectTimeout;
 
-    /**< @type Psr\Log\LoggerInterface Logger. */
+    /**
+     * Logger.
+     * @var LoggerInterface
+     */
     protected LoggerInterface $logger;
 
-    /**< @type resource SSL Socket. */
-    protected $hSocket;    /**< @type array HTTP/2 Error-response messages. */
+    /**
+     * SSL Socket.
+     * @var resource|CurlHandle
+     */
+    protected $hSocket;
+
+    /**
+     * HTTP/2 Error-response messages.
+     * @var array<int,string>
+     */
     protected array $HTTPErrorResponseMessages = array(
         200 => 'Success',
         400 => 'Bad request',
@@ -119,28 +183,39 @@ class Push
         self::STATUS_CODE_INTERNAL_ERROR => 'Internal error'
     );
 
-    /**< @type integer Send retry times. */
+    /**
+     * Send retry times.
+     * @var int
+     */
     protected int $sendRetryTimes = 3;
 
-    /**< @type array HTTP/2 Service URLs environments. */
+    /**
+     * HTTP/2 Service URLs environments.
+     * @var array<int,string>
+     */
     protected array $HTTPServiceURLs = array(
         'https://api.push.apple.com:443', // Production environment
         'https://api.development.push.apple.com:443' // Sandbox environment
     );
 
-    /**< @type array Message queue. */
+    /**
+     * Message queue.
+     * @var array
+     */
     protected array $messageQueue = array();
 
-    /**< @type array Error container. */
+    /**
+     * Error container.
+     * @var array
+     */
     protected array $errors = array();
 
     /**
      * Constructor.
      *
-     * @param  $environment @type integer Environment.
-     * @param  $providerCertificateFile @type string Provider certificate file
-     *         with key (Bundled PEM).
-     * @param  $logger $type LoggerInterface A Logger implementing PSR-3
+     * @param int             $environment             Environment.
+     * @param string          $providerCertificateFile Provider certificate file with key (Bundled PEM/P8).
+     * @param LoggerInterface $logger                  A Logger implementing PSR-3
      */
     public function __construct(int $environment, string $providerCertificateFile, LoggerInterface $logger)
     {
@@ -172,7 +247,7 @@ class Push
      * If the client is unable to send a payload to to the server retries at least
      * for this value. The default send retry times is 3.
      *
-     * @param  $retryTimes @type integer Send retry times.
+     * @param int $retryTimes Send retry times.
      */
     public function setSendRetryTimes(int $retryTimes): void
     {
@@ -182,7 +257,7 @@ class Push
     /**
      * Get the send retry time value.
      *
-     * @return @type integer Send retry times.
+     * @return int Send retry times.
      */
     public function getSendRetryTimes(): int
     {
@@ -229,8 +304,7 @@ class Push
      * @see http://www.entrust.net/
      * @see https://www.entrust.net/downloads/root_index.cfm
      *
-     * @param  $rootCertificationAuthorityFile @type string Root Certification
-     *         Authority file.
+     * @param string $rootCertificationAuthorityFile Root Certification Authority file.
      */
     public function setRootCertificationAuthority(string $rootCertificationAuthorityFile): void
     {
@@ -245,7 +319,7 @@ class Push
     /**
      * Get the Root Certification Authority file path.
      *
-     * @return @type string Current Root Certification Authority file path.
+     * @return string Current Root Certification Authority file path.
      */
     public function getCertificateAuthority(): string
     {
@@ -259,7 +333,7 @@ class Push
      * time interval. To speed up the sending operations, use Zero
      * as parameter but some messages may be lost.
      *
-     * @param  $writeInterval @type integer Write interval in micro seconds.
+     * @param int $writeInterval Write interval in micro seconds.
      */
     public function setWriteInterval(int $writeInterval): void
     {
@@ -269,7 +343,7 @@ class Push
     /**
      * Get the write interval.
      *
-     * @return @type integer Write interval in micro seconds.
+     * @return int Write interval in micro seconds.
      */
     public function getWriteInterval(): int
     {
@@ -282,7 +356,7 @@ class Push
      * The default connection timeout is the PHP internal value "default_socket_timeout".
      * @see http://php.net/manual/en/filesystem.configuration.php
      *
-     * @param  $timeout @type integer Connection timeout in seconds.
+     * @param int $timeout Connection timeout in seconds.
      */
     public function setConnectTimeout(int $timeout): void
     {
@@ -292,7 +366,7 @@ class Push
     /**
      * Get the connection timeout.
      *
-     * @return @type integer Connection timeout in seconds.
+     * @return int Connection timeout in seconds.
      */
     public function getConnectTimeout(): int
     {
@@ -305,7 +379,7 @@ class Push
      * If the client is unable to connect to the server retries at least for this
      * value. The default connect retry times is 3.
      *
-     * @param  $retryTimes @type integer Connect retry times.
+     * @param int $retryTimes Connect retry times.
      */
     public function setConnectRetryTimes(int $retryTimes): void
     {
@@ -315,7 +389,7 @@ class Push
     /**
      * Get the connect retry time value.
      *
-     * @return @type integer Connect retry times.
+     * @return int Connect retry times.
      */
     public function getConnectRetryTimes(): int
     {
@@ -328,9 +402,9 @@ class Push
      * If the client is unable to connect to the server retries at least for ConnectRetryTimes
      * and waits for this value between each attempts.
      *
-     * @param  $retryInterval @type integer Connect retry interval in micro seconds.
-     *@see setConnectRetryTimes
+     * @see setConnectRetryTimes
      *
+     * @param int $retryInterval Connect retry interval in micro seconds.
      */
     public function setConnectRetryInterval(int $retryInterval): void
     {
@@ -340,7 +414,7 @@ class Push
     /**
      * Get the connect retry interval.
      *
-     * @return @type integer Connect retry interval in micro seconds.
+     * @return int Connect retry interval in micro seconds.
      */
     public function getConnectRetryInterval(): int
     {
@@ -362,7 +436,7 @@ class Push
      *
      * @see http://php.net/stream_select
      *
-     * @param  $selectTimeout @type integer Socket select timeout in micro seconds.
+     * @param int $selectTimeout Socket select timeout in micro seconds.
      */
     public function setSocketSelectTimeout(int $selectTimeout): void
     {
@@ -372,7 +446,7 @@ class Push
     /**
      * Get the TCP socket select timeout.
      *
-     * @return @type integer Socket select timeout in micro seconds.
+     * @return int Socket select timeout in micro seconds.
      */
     public function getSocketSelectTimeout(): int
     {
@@ -414,7 +488,7 @@ class Push
     /**
      * Disconnects from Apple Push Notifications service server.
      *
-     * @return @type boolean True if successful disconnected.
+     * @return bool True if successful disconnected.
      */
     public function disconnect(): bool
     {
@@ -430,7 +504,7 @@ class Push
      * Initializes cURL, the HTTP/2 backend used to connect to Apple Push Notification
      * service server via HTTP/2 API protocol.
      *
-     * @return @type boolean True if successful initialized.
+     * @return bool True if successful initialized.
      */
     protected function httpInit(): bool
     {
@@ -480,7 +554,9 @@ class Push
     }
 
     /**
-     * @return string
+     * Get a JSON Web Token for authentication when using .p8 certificates.
+     *
+     * @return string JSON Web Token
      */
     protected function getJsonWebToken(): string
     {
@@ -496,7 +572,7 @@ class Push
     /**
      * Adds a message to the message queue.
      *
-     * @param  $message @type ApnsPHPMessage The message.
+     * @param Message $message The message.
      */
     public function add(Message $message): void
     {
@@ -609,9 +685,10 @@ class Push
     /**
      * Send a message using the HTTP/2 API protocol.
      *
-     * @param  $message @type ApnsPHPMessage The message.
-     * @param  $reply @type string The reply message.
-     * @return bool success of API call
+     * @param Message $message The message.
+     * @param string  $reply   The reply message.
+     *
+     * @return bool Success of API call
      */
     private function httpSend(Message $message, &$reply): bool
     {
@@ -663,8 +740,9 @@ class Push
      * from the message queue and inserted in the Errors container. Use the getErrors()
      * method to retrive messages with delivery error(s).
      *
-     * @param  $empty @type boolean @optional Empty message queue.
-     * @return @type array Array of messages left on the queue.
+     * @param bool $empty Empty the message queue (optional).
+     *
+     * @return array Array of messages left on the queue.
      */
     public function getMessageQueue(bool $empty = true): array
     {
@@ -679,9 +757,9 @@ class Push
      * Returns messages not delivered to the end user because one (or more) error
      * occurred.
      *
-     * @param  $empty @type boolean @optional Empty message container.
-     * @return @type array Array of messages not delivered because one or more errors
-     *         occurred.
+     * @param bool $empty Empty the message container.
+     *
+     * @return array Array of messages not delivered because one or more errors occurred.
      */
     public function getErrors(bool $empty = true): array
     {
@@ -695,11 +773,9 @@ class Push
     /**
      * Checks for error message and deletes messages successfully sent from message queue.
      *
-     * @param  $errorMessages @type array @optional The error message. It will anyway
-     *         always be read from the main stream. The latest successful message
-     *         sent is the lowest between this error message and the message that
-     *         was read from the main stream.
-     * @return @type boolean True if an error was received.
+     * @param array $errorMessages The error message (optional).
+     *
+     * @return bool True if an error was received.
      */
     protected function updateQueue(?array $errorMessages = null): bool
     {
@@ -731,8 +807,8 @@ class Push
     /**
      * Remove a message from the message queue.
      *
-     * @param  $messageId @type integer The Message ID.
-     * @param  $error @type boolean @optional Insert the message in the Error container.
+     * @param int  $messageId The Message ID.
+     * @param bool $error     Insert the message in the Error container (optional).
      */
     protected function removeMessageFromQueue(int $messageId, bool $error = false): void
     {
