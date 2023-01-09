@@ -92,7 +92,7 @@ class Push
      * Connect timeout in seconds.
      * @var int
      */
-    protected int $connectTimeout;
+    protected int $connectTimeout = 10;
 
     /**
      * Connect retry times.
@@ -131,12 +131,6 @@ class Push
     protected ?string $providerKeyId;
 
     /**
-     * Root certification authority file.
-     * @var string
-     */
-    protected string $rootCertAuthorityFile;
-
-    /**
      * Write interval in micro seconds.
      * @var int
      */
@@ -147,12 +141,6 @@ class Push
      * @var int
      */
     protected int $connectRetryInterval;
-
-    /**
-     * Socket select timeout in micro seconds.
-     * @var int
-     */
-    protected int $socketSelectTimeout;
 
     /**
      * Logger.
@@ -233,10 +221,8 @@ class Push
         }
         $this->providerCertFile = $providerCertificateFile;
 
-        $this->connectTimeout = ini_get("default_socket_timeout");
         $this->writeInterval = self::WRITE_INTERVAL;
         $this->connectRetryInterval = self::CONNECT_RETRY_INTERVAL;
-        $this->socketSelectTimeout = self::SOCKET_SELECT_TIMEOUT;
 
         $this->logger = $logger;
     }
@@ -292,38 +278,6 @@ class Push
     public function setKeyId(string $keyId): void
     {
         $this->providerKeyId = $keyId;
-    }
-
-    /**
-     * Set the Root Certification Authority file.
-     *
-     * Setting the Root Certification Authority file automatically set peer verification
-     * on connect.
-     *
-     * @see http://tinyurl.com/GeneralProviderRequirements
-     * @see http://www.entrust.net/
-     * @see https://www.entrust.net/downloads/root_index.cfm
-     *
-     * @param string $rootCertificationAuthorityFile Root Certification Authority file.
-     */
-    public function setRootCertificationAuthority(string $rootCertificationAuthorityFile): void
-    {
-        if (!is_readable($rootCertificationAuthorityFile)) {
-            throw new Exception(
-                "Unable to read Certificate Authority file '{$rootCertificationAuthorityFile}'"
-            );
-        }
-        $this->rootCertAuthorityFile = $rootCertificationAuthorityFile;
-    }
-
-    /**
-     * Get the Root Certification Authority file path.
-     *
-     * @return string Current Root Certification Authority file path.
-     */
-    public function getCertificateAuthority(): string
-    {
-        return $this->rootCertAuthorityFile;
     }
 
     /**
@@ -422,38 +376,6 @@ class Push
     }
 
     /**
-     * Set the TCP socket select timeout.
-     *
-     * After writing to socket waits for at least this value for read stream to
-     * change status.
-     *
-     * In Apple Push Notification protocol there isn't a real-time
-     * feedback about the correctness of notifications pushed to the server; so after
-     * each write to server waits at least SocketSelectTimeout. If, during this
-     * time, the read stream change its status and socket received an end-of-file
-     * from the server the notification pushed to server was broken, the server
-     * has closed the connection and the client needs to reconnect.
-     *
-     * @see http://php.net/stream_select
-     *
-     * @param int $selectTimeout Socket select timeout in micro seconds.
-     */
-    public function setSocketSelectTimeout(int $selectTimeout): void
-    {
-        $this->socketSelectTimeout = $selectTimeout;
-    }
-
-    /**
-     * Get the TCP socket select timeout.
-     *
-     * @return int Socket select timeout in micro seconds.
-     */
-    public function getSocketSelectTimeout(): int
-    {
-        return $this->socketSelectTimeout;
-    }
-
-    /**
      * Connects to Apple Push Notification service server.
      *
      * Retries ConnectRetryTimes if unable to connect and waits setConnectRetryInterval
@@ -524,7 +446,7 @@ class Push
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_USERAGENT => 'ApnsPHP',
-            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_VERBOSE => false

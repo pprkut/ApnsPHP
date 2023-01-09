@@ -46,9 +46,6 @@ $push = new \ApnsPHP\Push(
 // Set the Provider Certificate passphrase
 // $push->setProviderCertificatePassphrase('test');
 
-// Set the Root Certificate Autority to verify the Apple remote peer
-$push->setRootCertificationAuthority('entrust_root_certification_authority.pem');
-
 // Connect to the Apple Push Notification Service
 $push->connect();
 

@@ -46,9 +46,6 @@ $push = new \ApnsPHP\Push(
 	new SampleLogger(),
 );
 
-// Set the Root Certificate Autority to verify the Apple remote peer
-$push->setRootCertificationAuthority('entrust_root_certification_authority.pem');
-
 // Increase write interval to 100ms (default value is 10ms).
 // This is an example value, the 10ms default value is OK in most cases.
 // To speed up the sending operations, use Zero as parameter but
