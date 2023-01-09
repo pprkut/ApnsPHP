@@ -58,9 +58,9 @@ class SafariMessage extends Message
      * Get the variable string values to appear in place of the format specifiers
      * in urlFormatString.
      *
-     * @return string The variable string values.
+     * @return array The variable string values.
      */
-    public function getUrlArgs(): string
+    public function getUrlArgs(): array
     {
         return $this->urlArgs;
     }

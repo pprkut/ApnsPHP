@@ -114,9 +114,9 @@ class CustomMessage extends Message
      * Get the variable string values to appear in place of the format specifiers
      * in loc-key.
      *
-     * @return string The variable string values.
+     * @return array The variable string values.
      */
-    public function getLocArgs(): string
+    public function getLocArgs(): array
     {
         return $this->locArgs;
     }
