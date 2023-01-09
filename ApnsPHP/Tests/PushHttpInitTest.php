@@ -124,37 +124,6 @@ class PushHttpInitTest extends PushTest
     }
 
     /**
-     * Test that httpInit() throws an exception when curl_init() fails
-     *
-     * @covers \ApnsPHP\Push::httpInit
-     */
-    public function testHttpInitThrowsExceptionOnCurlInitFail()
-    {
-        $this->set_reflection_property_value('logger', $this->logger);
-
-        $this->mock_function('curl_init', function () {
-            return false;
-        });
-
-        $this->logger->expects($this->once())
-                     ->method('info')
-                     ->with('Trying to initialize HTTP/2 backend...');
-
-        $this->expectException('ApnsPHP\Exception');
-        $this->expectExceptionMessage('Unable to initialize HTTP/2 backend.');
-
-        $method = $this->get_accessible_reflection_method('httpInit');
-
-        try {
-            $method->invoke($this->class);
-        } catch (Exception $e) {
-            $this->unmock_function('curl_init');
-
-            throw $e;
-        }
-    }
-
-    /**
      * Test that httpInit() throws an exception when curl_setopt_array() fails
      *
      * @covers \ApnsPHP\Push::httpInit
@@ -229,9 +198,13 @@ class PushHttpInitTest extends PushTest
 
         $method = $this->get_accessible_reflection_method('httpInit');
 
+        # phpstan doesn't detect the potential throw through ReflectionMethod.
+        # Verified that by making the method public and calling it directly
+        # it's detected just fine.
+        # May be https://github.com/phpstan/phpstan/issues/7719
         try {
             $method->invoke($this->class);
-        } catch (Exception $e) {
+        } catch (Exception $e) { /* @phpstan-ignore-line */
             $this->unmock_function('curl_setopt_array');
             $this->unmock_method([ 'Lcobucci\JWT\Signer\Key\InMemory', 'file' ]);
             $this->unmock_method([ 'Lcobucci\JWT\Configuration', 'builder' ]);

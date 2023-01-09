@@ -59,7 +59,7 @@ class PushConnectTest extends PushTest
         $this->set_reflection_property_value('connectRetryInterval', 0);
         $this->set_reflection_property_value('logger', $this->logger);
 
-        $this->mock_function('curl_init', function () {
+        $this->mock_function('curl_setopt_array', function () {
             return false;
         });
 
@@ -70,16 +70,20 @@ class PushConnectTest extends PushTest
                      ->method('error')
                      ->with('Unable to initialize HTTP/2 backend.');
 
-        $this->logger->expects($this->exactly(7))
+        $this->logger->expects($this->exactly(11))
                      ->method('info')
                      ->withConsecutive(
                          [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
                          [ 'Retry to connect (1/3)...' ],
                          [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
                          [ 'Retry to connect (2/3)...' ],
                          [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
                          [ 'Retry to connect (3/3)...' ],
                          [ 'Trying to initialize HTTP/2 backend...' ],
+                         [ 'Initializing HTTP/2 backend with certificate.' ],
                      );
 
         $this->expectException('ApnsPHP\Exception');

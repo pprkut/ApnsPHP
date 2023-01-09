@@ -150,7 +150,7 @@ class Push
 
     /**
      * SSL Socket.
-     * @var resource|\CurlHandle
+     * @var resource|\CurlHandle|null
      */
     protected $hSocket;
 
@@ -224,7 +224,8 @@ class Push
         $this->writeInterval = self::WRITE_INTERVAL;
         $this->connectRetryInterval = self::CONNECT_RETRY_INTERVAL;
 
-        $this->logger = $logger;
+        $this->logger  = $logger;
+        $this->hSocket = null;
     }
 
     /**
@@ -433,12 +434,10 @@ class Push
     {
         $this->logger->info("Trying to initialize HTTP/2 backend...");
 
+        # curl_init() without arguments only really returns false in OOM scenarios,
+        # or an error in the DNS resolver initialization. phpstan says we can
+        # skip the false check, and I tend to agree.
         $this->hSocket = curl_init();
-        if ($this->hSocket === false) {
-            throw new Exception(
-                "Unable to initialize HTTP/2 backend."
-            );
-        }
 
         if (!defined('CURL_HTTP_VERSION_2_0')) {
             define('CURL_HTTP_VERSION_2_0', 3);
@@ -518,7 +517,7 @@ class Push
      */
     public function send(): void
     {
-        if (!$this->hSocket) {
+        if ($this->hSocket === null) {
             throw new Exception(
                 'Not connected to Push Notification Service'
             );
