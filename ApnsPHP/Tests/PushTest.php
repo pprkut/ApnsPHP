@@ -13,6 +13,7 @@ use ApnsPHP\Message;
 use ApnsPHP\Push;
 use Lunr\Halo\LunrBaseTest;
 use Psr\Log\LoggerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 
 /**
@@ -25,13 +26,13 @@ abstract class PushTest extends LunrBaseTest
 {
     /**
      * Mock instance of a Logger class.
-     * @var LoggerInterface
+     * @var LoggerInterface&MockObject
      */
     protected $logger;
 
     /**
      * Mock instance of the Message class.
-     * @var Message
+     * @var Message&MockObject
      */
     protected $message;
 

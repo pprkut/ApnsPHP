@@ -150,7 +150,7 @@ class Push
 
     /**
      * SSL Socket.
-     * @var resource|CurlHandle
+     * @var resource|\CurlHandle
      */
     protected $hSocket;
 

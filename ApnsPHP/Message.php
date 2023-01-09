@@ -643,7 +643,7 @@ class Message
     /**
      * Get the custom message identifier.
      *
-     * @return mixed The custom message identifier.
+     * @return string The custom message identifier.
      */
     public function getCustomIdentifier(): string
     {
@@ -708,7 +708,7 @@ class Message
     /**
      * Get the collapse ID of the remote notification.
      *
-     * @return int The collapse ID of the remote notification.
+     * @return string The collapse ID of the remote notification.
      */
     public function getCollapseId(): string
     {
