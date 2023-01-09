@@ -41,7 +41,7 @@ class Message
      * Recipients device tokens.
      * @var array
      */
-    protected array $deviceTokens = array();
+    protected array $deviceTokens = [];
 
     /**
      * Alert message to display to the user.
@@ -513,12 +513,12 @@ class Message
      */
     protected function getPayloadDictionary(): array
     {
-        $payload[self::APPLE_RESERVED_NAMESPACE] = array();
+        $payload[self::APPLE_RESERVED_NAMESPACE] = [];
 
         if (isset($this->text)) {
             if (isset($this->title) && strlen($this->title) > 0) {
                 // if the title is set, use it
-                $payload[self::APPLE_RESERVED_NAMESPACE]['alert'] = array();
+                $payload[self::APPLE_RESERVED_NAMESPACE]['alert'] = [];
                 $payload[self::APPLE_RESERVED_NAMESPACE]['alert']['title'] =  (string)$this->title;
                 $payload[self::APPLE_RESERVED_NAMESPACE]['alert']['body'] = (string)$this->text;
             } else {

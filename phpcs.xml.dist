@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="ApnsPHP-PSR12">
+    <description>PSR12 with minor additions.</description>
+
+    <!-- Include all sniffs in the PSR-12 standard. -->
+    <rule ref="PSR12"/>
+
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+</ruleset>

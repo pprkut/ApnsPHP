@@ -99,7 +99,7 @@ jobs:
           tools: cs2pr, phpcs
 
       - name: Run PHPCS
-        run: phpcs -q --report=checkstyle ApnsPHP --standard=PSR12 | cs2pr
+        run: phpcs -q --report=checkstyle ApnsPHP | cs2pr
 
   phpstan:
     runs-on: ubuntu-latest

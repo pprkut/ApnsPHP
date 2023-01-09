@@ -158,7 +158,7 @@ class Push
      * HTTP/2 Error-response messages.
      * @var array<int,string>
      */
-    protected array $HTTPErrorResponseMessages = array(
+    protected array $HTTPErrorResponseMessages = [
         200 => 'Success',
         400 => 'Bad request',
         403 => 'There was an error with the certificate',
@@ -169,7 +169,7 @@ class Push
         500 => 'Internal server error',
         503 => 'The server is shutting down and unavailable',
         self::STATUS_CODE_INTERNAL_ERROR => 'Internal error'
-    );
+    ];
 
     /**
      * Send retry times.
@@ -181,22 +181,22 @@ class Push
      * HTTP/2 Service URLs environments.
      * @var array<int,string>
      */
-    protected array $HTTPServiceURLs = array(
+    protected array $HTTPServiceURLs = [
         'https://api.push.apple.com:443', // Production environment
         'https://api.development.push.apple.com:443' // Sandbox environment
-    );
+    ];
 
     /**
      * Message queue.
      * @var array
      */
-    protected array $messageQueue = array();
+    protected array $messageQueue = [];
 
     /**
      * Error container.
      * @var array
      */
-    protected array $errors = array();
+    protected array $errors = [];
 
     /**
      * Constructor.
@@ -443,7 +443,7 @@ class Push
         if (!defined('CURL_HTTP_VERSION_2_0')) {
             define('CURL_HTTP_VERSION_2_0', 3);
         }
-        $curlOpts = array(
+        $curlOpts = [
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_USERAGENT => 'ApnsPHP',
@@ -451,7 +451,7 @@ class Push
             CURLOPT_TIMEOUT => 30,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_VERBOSE => false
-        );
+        ];
 
         if (strpos($this->providerCertFile, '.pem') !== false) {
             $this->logger->info("Initializing HTTP/2 backend with certificate.");
@@ -505,10 +505,10 @@ class Push
         $messageQueueLen = count($this->messageQueue);
         for ($i = 0; $i < $recipients; $i++) {
             $messageId = $messageQueueLen + $i + 1;
-            $messages = array(
+            $messages = [
                 'MESSAGE' => $message->selfForRecipient($i),
-                'ERRORS' => array()
-            );
+                'ERRORS' => []
+            ];
             $this->messageQueue[$messageId] = $messages;
         }
     }
@@ -530,7 +530,7 @@ class Push
             );
         }
 
-        $this->errors = array();
+        $this->errors = [];
         $run = 1;
         while (($messageAmount = count($this->messageQueue)) > 0) {
             $this->logger->info("Sending messages queue, run #{$run}: $messageAmount message(s) left in queue.");
@@ -583,11 +583,11 @@ class Push
                 $errorMessage = null;
 
                 if (!$this->httpSend($message, $reply)) {
-                    $errorMessage = array(
+                    $errorMessage = [
                         'identifier' => $key,
                         'statusCode' => curl_getinfo($this->hSocket, CURLINFO_HTTP_CODE),
                         'statusMessage' => $reply
-                    );
+                    ];
                 }
                 usleep($this->writeInterval);
 
@@ -598,7 +598,7 @@ class Push
             }
 
             if (!$error) {
-                $this->messageQueue = array();
+                $this->messageQueue = [];
             }
 
             $run++;
@@ -615,7 +615,7 @@ class Push
      */
     private function httpSend(Message $message, &$reply): bool
     {
-        $headers = array('Content-Type: application/json');
+        $headers = ['Content-Type: application/json'];
         if (!empty($message->getTopic())) {
             $headers[] = sprintf('apns-topic: %s', $message->getTopic());
         }
@@ -639,7 +639,7 @@ class Push
         }
 
         if (
-            !(curl_setopt_array($this->hSocket, array(
+            !(curl_setopt_array($this->hSocket, [
             CURLOPT_POST => true,
             CURLOPT_URL => sprintf(
                 '%s/3/device/%s',
@@ -648,7 +648,7 @@ class Push
             ),
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => $message->getPayload()
-            )) && ($reply = curl_exec($this->hSocket)) !== false)
+            ]) && ($reply = curl_exec($this->hSocket)) !== false)
         ) {
             return false;
         }
@@ -671,7 +671,7 @@ class Push
     {
         $messages = $this->messageQueue;
         if ($empty) {
-            $this->messageQueue = array();
+            $this->messageQueue = [];
         }
         return $messages;
     }
@@ -688,7 +688,7 @@ class Push
     {
         $messages = $this->errors;
         if ($empty) {
-            $this->errors = array();
+            $this->errors = [];
         }
         return $messages;
     }
