@@ -417,6 +417,7 @@ class Push
         if (is_resource($this->hSocket) || is_object($this->hSocket)) {
             $this->logger->info('Disconnected.');
             curl_close($this->hSocket);
+            unset($this->hSocket); // curl_close($handle) has no effect in PHP >= 8.0
             return true;
         }
         return false;
