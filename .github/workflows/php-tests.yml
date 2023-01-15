@@ -33,7 +33,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
-        run: composer install
+        run: composer update
 
       - name: Setup fake certificates
         run: |
@@ -70,7 +70,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
       - name: Install dependencies
-        run: composer install
+        run: composer update
 
       - name: Setup fake certificates
         run: |
@@ -113,7 +113,7 @@ jobs:
           extensions: uopz
 
       - name: Install dependencies
-        run: composer install
+        run: composer update
 
       - name: Run PHPStan
         run: phpstan analyse ApnsPHP -l5
