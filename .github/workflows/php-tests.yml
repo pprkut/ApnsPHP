@@ -64,6 +64,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          coverage: none
           extensions: uopz
 
       - name: Setup problem matchers for PHP
@@ -92,6 +93,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          coverage: none
           tools: cs2pr, phpcs
 
       - name: Run PHPCS
@@ -109,6 +111,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          coverage: none
           tools: phpstan
           extensions: uopz
 
