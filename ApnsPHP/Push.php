@@ -533,10 +533,6 @@ class Push
 
             $error = false;
             foreach ($this->messageQueue as $key => &$messages) {
-                if (function_exists('pcntl_signal_dispatch')) {
-                    pcntl_signal_dispatch();
-                }
-
                 $message = $messages['MESSAGE'];
                 $customIdentifier = (string)$message->getCustomIdentifier();
                 $customIdentifier = sprintf(
