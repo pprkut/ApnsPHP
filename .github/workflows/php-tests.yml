@@ -39,6 +39,8 @@ jobs:
         run: |
           touch entrust_root_certification_authority.pem
           touch server_certificates_bundle_sandbox.pem
+          touch server_certificates_bundle_unreadable.pem
+          chmod 000 server_certificates_bundle_unreadable.pem
 
       - name: Run PHPUnit
         run: phpunit -c phpunit.xml

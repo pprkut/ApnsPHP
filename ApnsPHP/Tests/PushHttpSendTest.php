@@ -42,6 +42,10 @@ class PushHttpSendTest extends PushTest
                       ->method('getCustomIdentifier')
                       ->will($this->returnValue('7530A828-E58E-433E-A38F-D8042208CF96'));
 
+        $this->message->expects($this->exactly(2))
+                      ->method('getPushType')
+                      ->will($this->returnValue('alert'));
+
         $this->set_reflection_property_value('providerToken', 'jwt');
     }
 

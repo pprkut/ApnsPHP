@@ -238,7 +238,7 @@ class Push
      */
     public function setSendRetryTimes(int $retryTimes): void
     {
-        $this->sendRetryTimes = (int)$retryTimes;
+        $this->sendRetryTimes = $retryTimes;
     }
 
     /**

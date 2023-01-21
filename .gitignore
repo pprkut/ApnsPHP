@@ -15,7 +15,9 @@ profile
 *.moved-aside
 .DS_Store
 entrust_root_certification_authority.pem
+server_certificates_bundle_invalid.pem
 server_certificates_bundle_sandbox.pem
+server_certificates_bundle_unreadable.pem
 UniversalPushNotificationClientSSLCertificate.p8
 *~
 # Composer
