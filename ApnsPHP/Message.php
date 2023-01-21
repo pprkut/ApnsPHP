@@ -562,13 +562,8 @@ class Message
     {
         $JSON = json_encode(
             $this->getPayloadDictionary(),
-            defined('JSON_UNESCAPED_UNICODE') ? JSON_UNESCAPED_UNICODE : 0
+            JSON_UNESCAPED_UNICODE
         );
-        if (!defined('JSON_UNESCAPED_UNICODE') && function_exists('mb_convert_encoding')) {
-            $JSON = preg_replace_callback('~\\\\u([0-9a-f]{4})~i', function ($matches) {
-                return mb_convert_encoding(pack("H*", $matches[1]), "UTF-8", "UTF-16");
-            }, $JSON);
-        }
 
         $JSONPayload = str_replace(
             '"' . self::APPLE_RESERVED_NAMESPACE . '":[]',
