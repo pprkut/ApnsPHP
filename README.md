@@ -32,8 +32,8 @@ All client-server activities are based on the "on error, retry" pattern with cus
 Requirements
 -------------
 
-PHP 7.4.0 or later with OpenSSL.
+PHP 7.4.0 or later with OpenSSL and curl (at least version 7.33.0)
 
 ```
-./configure --with-openssl[=PATH]
+./configure --with-openssl[=PATH] --with-curl[=PATH]
 ```

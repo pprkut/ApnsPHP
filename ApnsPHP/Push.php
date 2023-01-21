@@ -439,9 +439,6 @@ class Push
         # skip the false check, and I tend to agree.
         $this->hSocket = curl_init();
 
-        if (!defined('CURL_HTTP_VERSION_2_0')) {
-            define('CURL_HTTP_VERSION_2_0', 3);
-        }
         $curlOpts = [
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0,
             CURLOPT_RETURNTRANSFER => true,
