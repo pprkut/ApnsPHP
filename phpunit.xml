@@ -9,6 +9,7 @@
 
     <testsuites>
         <testsuite name="Base">
+            <file>ApnsPHP/Tests/MessageSetTest.php</file>
             <file>ApnsPHP/Tests/MessageAddRecipientTest.php</file>
             <file>ApnsPHP/Tests/MessageSelfForRecipientTest.php</file>
             <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>

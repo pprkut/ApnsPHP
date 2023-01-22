@@ -32,6 +32,27 @@ class Message
     protected const APPLE_RESERVED_NAMESPACE = 'aps';
 
     /**
+     * Supported notification priorities.
+     * @var array
+     */
+    protected const APNS_PRIORITIES = [ 1, 5, 10 ];
+
+    /**
+     * Supported push types.
+     * @var array
+     */
+    protected const APNS_PUSH_TYPES = [
+        'alert',
+        'background',
+        'location',
+        'voip',
+        'complication',
+        'fileprovider',
+        'mdm',
+        'liveactivity',
+    ];
+
+    /**
      * If the JSON payload is longer than maximum allowed size, shorts message text.
      * @var bool|null
      */
@@ -125,13 +146,13 @@ class Message
 
     /**
      * The priority of the remote notification.
-     * @var int
+     * @var 1|5|10|null
      */
-    protected int $priority;
+    protected ?int $priority = null;
 
     /**
      * Push type
-     * @var string|null
+     * @var 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity'|null
      */
     private ?string $pushType = null;
 
@@ -394,12 +415,13 @@ class Message
      */
     public function setCustomProperty(string $name, $value): void
     {
-        if (trim($name) == self::APPLE_RESERVED_NAMESPACE) {
+        $name = trim($name);
+        if ($name == self::APPLE_RESERVED_NAMESPACE) {
             throw new Exception(
                 "Property name '" . self::APPLE_RESERVED_NAMESPACE . "' can not be used for custom property."
             );
         }
-        $this->customProperties[trim($name)] = $value;
+        $this->customProperties[$name] = $value;
     }
 
     /**
@@ -669,11 +691,11 @@ class Message
     /**
      * Set the priority of the remote notification, which is 5 (low) or 10 (high).
      *
-     * @param int $priority The priority of the remote notification.
+     * @param 1|5|10 $priority The priority of the remote notification.
      */
     public function setPriority(int $priority): void
     {
-        if (!in_array($priority, [5, 10])) {
+        if (!in_array($priority, self::APNS_PRIORITIES)) {
             throw new Exception('Invalid priority');
         }
 
@@ -683,9 +705,9 @@ class Message
     /**
      * Get the priority of the remote notification.
      *
-     * @return int The priority of the remote notification.
+     * @return 1|5|10|null The priority of the remote notification.
      */
-    public function getPriority(): int
+    public function getPriority(): ?int
     {
         return $this->priority;
     }
@@ -713,17 +735,21 @@ class Message
     /**
      * Set the push type.
      *
-     * @param 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm' $pushType
+     * @param 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity' $pushType
      */
     public function setPushType(string $pushType): void
     {
+        if (!in_array($pushType, self::APNS_PUSH_TYPES)) {
+            throw new Exception('Invalid push type');
+        }
+
         $this->pushType = $pushType;
     }
 
     /**
      * Get the push type.
      *
-     * @return string|null Push type
+     * @return 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity'|null Push type
      */
     public function getPushType(): ?string
     {
