@@ -10,6 +10,7 @@
     <testsuites>
         <testsuite name="Base">
             <file>ApnsPHP/Tests/MessageSetTest.php</file>
+            <file>ApnsPHP/Tests/MessageGetTest.php</file>
             <file>ApnsPHP/Tests/MessageAddRecipientTest.php</file>
             <file>ApnsPHP/Tests/MessageSelfForRecipientTest.php</file>
             <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>
@@ -28,8 +29,10 @@
         </testsuite>
         <testsuite name="Message">
             <file>ApnsPHP/Message/Tests/CustomMessageTest.php</file>
+            <file>ApnsPHP/Message/Tests/CustomMessageGetTest.php</file>
             <file>ApnsPHP/Message/Tests/CustomMessageGetPayloadDictionaryTest.php</file>
             <file>ApnsPHP/Message/Tests/SafariMessageTest.php</file>
+            <file>ApnsPHP/Message/Tests/SafariMessageGetTest.php</file>
             <file>ApnsPHP/Message/Tests/SafariMessageGetPayloadDictionaryTest.php</file>
         </testsuite>
     </testsuites>
