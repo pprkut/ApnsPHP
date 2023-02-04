@@ -33,13 +33,13 @@ class Message
 
     /**
      * Supported notification priorities.
-     * @var array
+     * @var int[]
      */
     protected const APNS_PRIORITIES = [ 1, 5, 10 ];
 
     /**
      * Supported push types.
-     * @var array
+     * @var string[]
      */
     protected const APNS_PUSH_TYPES = [
         'alert',
@@ -60,7 +60,7 @@ class Message
 
     /**
      * Recipients device tokens.
-     * @var array
+     * @var string[]
      */
     protected array $deviceTokens = [];
 
@@ -116,7 +116,7 @@ class Message
 
     /**
      * Custom properties container.
-     * @var array
+     * @var array<string,mixed>
      */
     protected array $customProperties = [];
 
@@ -247,7 +247,7 @@ class Message
     /**
      * Get all recipients.
      *
-     * @return array Array of all recipients device token.
+     * @return string[] Array of all recipients device token.
      */
     public function getRecipients(): array
     {
@@ -477,7 +477,7 @@ class Message
     /**
      * Get all custom properties names.
      *
-     * @return array All properties names.
+     * @return string[] All properties names.
      */
     public function getCustomPropertyNames(): array
     {
@@ -543,7 +543,7 @@ class Message
      * For more information on push titles see:
      * https://stackoverflow.com/questions/40647061/bold-or-other-formatting-in-ios-push-notification
      *
-     * @return array The payload dictionary.
+     * @return array<string,mixed> The payload dictionary.
      */
     protected function getPayloadDictionary(): array
     {
