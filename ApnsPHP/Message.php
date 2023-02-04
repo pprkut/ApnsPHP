@@ -225,9 +225,21 @@ class Message
     /**
      * Get the number of recipients.
      *
+     * @deprecated Use getRecipientsCount() instead.
+     *
      * @return int Recipient's number.
      */
     public function getRecipientsNumber(): int
+    {
+        return $this->getRecipientsCount();
+    }
+
+    /**
+     * Get the number of recipients.
+     *
+     * @return int Recipient's number.
+     */
+    public function getRecipientsCount(): int
     {
         return count($this->deviceTokens);
     }

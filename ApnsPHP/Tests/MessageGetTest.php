@@ -380,6 +380,25 @@ class MessageGetTest extends MessageTest
     }
 
     /**
+     * Test that getRecipientsCount() returns the count of set device tokens.
+     *
+     * @covers \ApnsPHP\Message::getRecipientsCount
+     */
+    public function testGetRecipientsCount()
+    {
+        $tokens = [
+            '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',
+            '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485B'
+        ];
+
+        $this->set_reflection_property_value('deviceTokens', $tokens);
+
+        $value = $this->class->getRecipientsCount();
+
+        $this->assertSame(2, $value);
+    }
+
+    /**
      * Test that getRecipients() returns the set device tokens.
      *
      * @covers \ApnsPHP\Message::getRecipients
