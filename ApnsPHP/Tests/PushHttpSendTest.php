@@ -20,7 +20,7 @@ class PushHttpSendTest extends PushTest
      * Helper function to set the http headers and verify calls to message getters
      * These calls happen when HttpSend is called and can be the same every time
      */
-    private function setHttpHeaders()
+    private function setHttpHeaders(): void
     {
         $this->message->expects($this->exactly(2))
                       ->method('getTopic')
@@ -54,7 +54,7 @@ class PushHttpSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpSend
      */
-    public function testHttpSendReturnsFalseOnCurlSessionFail()
+    public function testHttpSendReturnsFalseOnCurlSessionFail(): void
     {
         $this->mock_function('curl_exec', function () {
             return false;
@@ -88,7 +88,7 @@ class PushHttpSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpSend
      */
-    public function testHttpSendReturnsFalseOnCurlOptsCannotBeSet()
+    public function testHttpSendReturnsFalseOnCurlOptsCannotBeSet(): void
     {
         $this->mock_function('curl_setopt_array', function () {
             return false;
@@ -126,7 +126,7 @@ class PushHttpSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpSend
      */
-    public function testHttpSendReturnsFalseOnRequestFail()
+    public function testHttpSendReturnsFalseOnRequestFail(): void
     {
         $this->mock_function('curl_setopt_array', function () {
             return true;
@@ -169,7 +169,7 @@ class PushHttpSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpSend
      */
-    public function testHttpSendReturnsTrueOnSuccess()
+    public function testHttpSendReturnsTrueOnSuccess(): void
     {
         $this->mock_function('curl_setopt_array', function () {
             return true;

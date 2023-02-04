@@ -21,7 +21,7 @@ class PushAddTest extends PushTest
      *
      * @covers \ApnsPHP\Push::add
      */
-    public function testAddOneMessage()
+    public function testAddOneMessage(): void
     {
         $this->message->expects($this->once())
                       ->method('getPayLoad')
@@ -48,7 +48,7 @@ class PushAddTest extends PushTest
      *
      * @covers \ApnsPHP\Push::add
      */
-    public function testAddMultipleMessages()
+    public function testAddMultipleMessages(): void
     {
         $messages = [
             1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ],
@@ -82,7 +82,7 @@ class PushAddTest extends PushTest
      *
      * @covers \ApnsPHP\Push::add
      */
-    public function testAddDoesNothing()
+    public function testAddDoesNothing(): void
     {
         $this->message->expects($this->once())
                       ->method('getPayLoad')

@@ -21,7 +21,7 @@ class MessageSetTest extends MessageTest
      *
      * @return array Variations of the reserved apple namespace key
      */
-    public function reservedAppleNamespaceKeyProvider()
+    public function reservedAppleNamespaceKeyProvider(): array
     {
         $data   = [];
         $data[] = [ 'aps' ];
@@ -37,7 +37,7 @@ class MessageSetTest extends MessageTest
      *
      * @return array Variations of valid custom identifiers
      */
-    public function validCustomIdentifierProvider()
+    public function validCustomIdentifierProvider(): array
     {
         $data   = [];
         $data[] = [ '3491ac4b-0681-4c92-8308-d8d8441f4e64' ];
@@ -51,7 +51,7 @@ class MessageSetTest extends MessageTest
      *
      * @return array Variations of a valid message priority
      */
-    public function validPriorityProvider()
+    public function validPriorityProvider(): array
     {
         $data   = [];
         $data[] = [ 1 ];
@@ -66,7 +66,7 @@ class MessageSetTest extends MessageTest
      *
      * @return array Variations of a valid push type
      */
-    public function validPushTypeProvider()
+    public function validPushTypeProvider(): array
     {
         $data   = [];
         $data[] = [ 'alert' ];
@@ -86,7 +86,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setText
      */
-    public function testSetText()
+    public function testSetText(): void
     {
         $this->class->setText('My Message');
 
@@ -98,7 +98,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setTitle
      */
-    public function testSetTitle()
+    public function testSetTitle(): void
     {
         $this->class->setTitle('My Title');
 
@@ -110,7 +110,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setBadge
      */
-    public function testSetBadge()
+    public function testSetBadge(): void
     {
         $this->class->setBadge(2);
 
@@ -122,7 +122,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setSound
      */
-    public function testSetSound()
+    public function testSetSound(): void
     {
         $this->class->setSound('jingle');
 
@@ -134,7 +134,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setSound
      */
-    public function testSetDefaultSound()
+    public function testSetDefaultSound(): void
     {
         $this->class->setSound();
 
@@ -146,7 +146,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCategory
      */
-    public function testSetCategory()
+    public function testSetCategory(): void
     {
         $this->class->setCategory('news');
 
@@ -158,7 +158,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCategory
      */
-    public function testSetDefaultCategory()
+    public function testSetDefaultCategory(): void
     {
         $this->class->setCategory();
 
@@ -170,7 +170,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setThreadId
      */
-    public function testSetThreadId()
+    public function testSetThreadId(): void
     {
         $this->class->setThreadId('news-1');
 
@@ -182,7 +182,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setThreadId
      */
-    public function testSetDefaultThreadId()
+    public function testSetDefaultThreadId(): void
     {
         $this->class->setThreadId();
 
@@ -194,7 +194,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setContentAvailable
      */
-    public function testSetContentAvailableTrue()
+    public function testSetContentAvailableTrue(): void
     {
         $this->class->setContentAvailable(true);
 
@@ -206,7 +206,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setContentAvailable
      */
-    public function testSetContentAvailableFalse()
+    public function testSetContentAvailableFalse(): void
     {
         $this->class->setContentAvailable(false);
 
@@ -218,7 +218,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setContentAvailable
      */
-    public function testSetDefaultContentAvailable()
+    public function testSetDefaultContentAvailable(): void
     {
         $this->class->setContentAvailable(true);
 
@@ -230,7 +230,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setMutableContent
      */
-    public function testSetMutableContentTrue()
+    public function testSetMutableContentTrue(): void
     {
         $this->class->setMutableContent(true);
 
@@ -242,7 +242,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setMutableContent
      */
-    public function testSetMutableContentFalse()
+    public function testSetMutableContentFalse(): void
     {
         $this->class->setMutableContent(false);
 
@@ -254,7 +254,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setMutableContent
      */
-    public function testSetDefaultMutableContent()
+    public function testSetDefaultMutableContent(): void
     {
         $this->class->setMutableContent();
 
@@ -266,7 +266,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setAutoAdjustLongPayload
      */
-    public function testSetAutoAdjustLongPayload()
+    public function testSetAutoAdjustLongPayload(): void
     {
         $this->class->setAutoAdjustLongPayload(false);
 
@@ -278,7 +278,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setExpiry
      */
-    public function testSetExpiry()
+    public function testSetExpiry(): void
     {
         $this->class->setExpiry(600);
 
@@ -290,7 +290,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setTopic
      */
-    public function testSetTopic()
+    public function testSetTopic(): void
     {
         $this->class->setTopic('My App');
 
@@ -302,7 +302,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCollapseId
      */
-    public function testSetCollapseId()
+    public function testSetCollapseId(): void
     {
         $this->class->setCollapseId('news-1');
 
@@ -314,7 +314,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCustomProperty
      */
-    public function testSetCustomProperty()
+    public function testSetCustomProperty(): void
     {
         $this->class->setCustomProperty('myId', 'my-news-1');
 
@@ -326,7 +326,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCustomProperty
      */
-    public function testSetAdditionalCustomProperty()
+    public function testSetAdditionalCustomProperty(): void
     {
         $this->set_reflection_property_value('customProperties', [ 'myId' => 'my-news-1' ]);
 
@@ -348,7 +348,7 @@ class MessageSetTest extends MessageTest
      * @dataProvider reservedAppleNamespaceKeyProvider
      * @covers       \ApnsPHP\Message::setCustomProperty
      */
-    public function testSetInvalidCustomProperty(string $key)
+    public function testSetInvalidCustomProperty(string $key): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage("Property name 'aps' can not be used for custom property.");
@@ -364,7 +364,7 @@ class MessageSetTest extends MessageTest
      * @dataProvider validCustomIdentifierProvider
      * @covers       \ApnsPHP\Message::setCustomIdentifier
      */
-    public function testSetValidCustomIndentifier(string $id)
+    public function testSetValidCustomIndentifier(string $id): void
     {
         $this->class->setCustomIdentifier($id);
 
@@ -376,7 +376,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setCustomIdentifier
      */
-    public function testSetInvalidCustomIndentifier()
+    public function testSetInvalidCustomIndentifier(): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage('Identifier must be a UUID');
@@ -392,7 +392,7 @@ class MessageSetTest extends MessageTest
      * @dataProvider validPriorityProvider
      * @covers       \ApnsPHP\Message::setPriority
      */
-    public function testSetValidPriority(int $priority)
+    public function testSetValidPriority(int $priority): void
     {
         $this->class->setPriority($priority);
 
@@ -404,7 +404,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setPriority
      */
-    public function testSetInvalidPriority()
+    public function testSetInvalidPriority(): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage('Invalid priority');
@@ -420,7 +420,7 @@ class MessageSetTest extends MessageTest
      * @dataProvider validPushTypeProvider
      * @covers       \ApnsPHP\Message::setPushType
      */
-    public function testSetValidPushType(string $type)
+    public function testSetValidPushType(string $type): void
     {
         $this->class->setPushType($type);
 
@@ -432,7 +432,7 @@ class MessageSetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::setPushType
      */
-    public function testSetInvalidPushType()
+    public function testSetInvalidPushType(): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage('Invalid push type');

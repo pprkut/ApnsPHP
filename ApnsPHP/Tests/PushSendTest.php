@@ -23,7 +23,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendThrowsExceptionOnNoConnection()
+    public function testSendThrowsExceptionOnNoConnection(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage('Not connected to Push Notification Service');
@@ -36,7 +36,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendThrowsExceptionOnEmptyQueue()
+    public function testSendThrowsExceptionOnEmptyQueue(): void
     {
         $this->set_reflection_property_value('hSocket', new stdClass());
 
@@ -51,7 +51,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendFailsWithoutRetrying()
+    public function testSendFailsWithoutRetrying(): void
     {
         $this->mock_function('curl_exec', function () {
             return false;
@@ -118,7 +118,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendFailsWithRetrying()
+    public function testSendFailsWithRetrying(): void
     {
         $this->mock_function('curl_exec', function () {
             return false;
@@ -191,7 +191,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendRemovesWhenNoError()
+    public function testSendRemovesWhenNoError(): void
     {
         $this->mock_function('curl_exec', function () {
             return false;
@@ -251,7 +251,7 @@ class PushSendTest extends PushTest
      *
      * @covers \ApnsPHP\Push::send
      */
-    public function testSendSuccessfullySends()
+    public function testSendSuccessfullySends(): void
     {
         $this->mock_function('curl_exec', function () {
             return true;

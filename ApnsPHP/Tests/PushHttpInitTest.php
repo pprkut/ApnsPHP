@@ -26,7 +26,7 @@ class PushHttpInitTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpInit
      */
-    public function testHttpInitSucceedsWithCertificate()
+    public function testHttpInitSucceedsWithCertificate(): void
     {
         $this->set_reflection_property_value('providerCertFile', 'cert.pem');
         $this->set_reflection_property_value('logger', $this->logger);
@@ -52,7 +52,7 @@ class PushHttpInitTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpInit
      */
-    public function testHttpInitSucceedsWithKey()
+    public function testHttpInitSucceedsWithKey(): void
     {
         $this->set_reflection_property_value('providerCertFile', 'key.p8');
         $this->set_reflection_property_value('providerTeamId', 'TheTeam');
@@ -128,7 +128,7 @@ class PushHttpInitTest extends PushTest
      *
      * @covers \ApnsPHP\Push::httpInit
      */
-    public function testHttpInitThrowsExceptionOnCurlSetoptFail()
+    public function testHttpInitThrowsExceptionOnCurlSetoptFail(): void
     {
         $this->set_reflection_property_value('providerCertFile', 'key.p8');
         $this->set_reflection_property_value('providerTeamId', 'TheTeam');

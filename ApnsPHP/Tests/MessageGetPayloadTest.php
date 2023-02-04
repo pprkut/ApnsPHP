@@ -161,7 +161,7 @@ class MessageGetPayloadTest extends MessageTest
      *
      * @return string String of certain size in bytes
      */
-    private function getLargeString($size)
+    private function getLargeString($size): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $length     = strlen($characters);

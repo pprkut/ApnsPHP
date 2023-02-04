@@ -21,7 +21,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getText
      */
-    public function testGetText()
+    public function testGetText(): void
     {
         $this->set_reflection_property_value('text', 'My Message');
 
@@ -35,7 +35,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getTitle
      */
-    public function testGetTitle()
+    public function testGetTitle(): void
     {
         $this->set_reflection_property_value('title', 'My Title');
 
@@ -49,7 +49,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getBadge
      */
-    public function testGetBadge()
+    public function testGetBadge(): void
     {
         $this->set_reflection_property_value('badge', 2);
 
@@ -63,7 +63,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getSound
      */
-    public function testGetSound()
+    public function testGetSound(): void
     {
         $this->set_reflection_property_value('sound', 'jingle');
 
@@ -77,7 +77,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCategory
      */
-    public function testGetCategory()
+    public function testGetCategory(): void
     {
         $this->set_reflection_property_value('category', 'news-1');
 
@@ -91,7 +91,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getThreadId
      */
-    public function testGetThreadId()
+    public function testGetThreadId(): void
     {
         $this->set_reflection_property_value('threadId', 'news-1');
 
@@ -105,7 +105,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getContentAvailable
      */
-    public function testGetContentAvailable()
+    public function testGetContentAvailable(): void
     {
         $this->set_reflection_property_value('contentAvailable', true);
 
@@ -119,7 +119,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getMutableContent
      */
-    public function testGetMutableContent()
+    public function testGetMutableContent(): void
     {
         $this->set_reflection_property_value('mutableContent', true);
 
@@ -133,7 +133,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getAutoAdjustLongPayload
      */
-    public function testGetAutoAdjustLongPayload()
+    public function testGetAutoAdjustLongPayload(): void
     {
         $this->set_reflection_property_value('autoAdjustLongPayload', false);
 
@@ -147,7 +147,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getExpiry
      */
-    public function testGetExpiry()
+    public function testGetExpiry(): void
     {
         $this->set_reflection_property_value('expiryValue', 600);
 
@@ -161,7 +161,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getTopic
      */
-    public function testGetTopic()
+    public function testGetTopic(): void
     {
         $this->set_reflection_property_value('topic', 'My App');
 
@@ -175,7 +175,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCollapseId
      */
-    public function testGetCollapseId()
+    public function testGetCollapseId(): void
     {
         $this->set_reflection_property_value('collapseId', 'news-1');
 
@@ -189,7 +189,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getPriority
      */
-    public function testGetPriority()
+    public function testGetPriority(): void
     {
         $this->set_reflection_property_value('priority', 5);
 
@@ -203,7 +203,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getPushType
      */
-    public function testGetPushType()
+    public function testGetPushType(): void
     {
         $this->set_reflection_property_value('pushType', 'alert');
 
@@ -217,7 +217,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomIdentifier
      */
-    public function testGetCustomIdentifier()
+    public function testGetCustomIdentifier(): void
     {
         $this->set_reflection_property_value('customIdentifier', '3491ac4b-0681-4c92-8308-d8d8441f4e64');
 
@@ -231,7 +231,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyName
      */
-    public function testGetCustomPropertyNameReturnsFirstPropertyName()
+    public function testGetCustomPropertyNameReturnsFirstPropertyName(): void
     {
         $properties = [
             'my-title'   => 'My Title',
@@ -250,7 +250,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyName
      */
-    public function testGetCustomPropertyNameThrowsExceptionWhenNoneSet()
+    public function testGetCustomPropertyNameThrowsExceptionWhenNoneSet(): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage('No custom property exists!');
@@ -263,7 +263,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyValue
      */
-    public function testGetCustomPropertyValueReturnsFirstPropertyValue()
+    public function testGetCustomPropertyValueReturnsFirstPropertyValue(): void
     {
         $properties = [
             'my-title'   => 'My Title',
@@ -282,7 +282,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyValue
      */
-    public function testGetCustomPropertyValueThrowsExceptionWhenNoneSet()
+    public function testGetCustomPropertyValueThrowsExceptionWhenNoneSet(): void
     {
         $this->expectException('ApnsPHP\Message\Exception');
         $this->expectExceptionMessage('No custom property exists!');
@@ -295,7 +295,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomProperty
      */
-    public function testGetCustomPropertyWithExistingPropertyName()
+    public function testGetCustomPropertyWithExistingPropertyName(): void
     {
         $properties = [
             'my-title'   => 'My Title',
@@ -314,7 +314,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomProperty
      */
-    public function testGetCustomPropertyThrowsExceptionWhenNotExists()
+    public function testGetCustomPropertyThrowsExceptionWhenNotExists(): void
     {
         $properties = [
             'my-title'   => 'My Title',
@@ -334,7 +334,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyNames
      */
-    public function testGetCustomPropertyNamesWithPropertiesSet()
+    public function testGetCustomPropertyNamesWithPropertiesSet(): void
     {
         $properties = [
             'my-title'   => 'My Title',
@@ -353,7 +353,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getCustomPropertyNames
      */
-    public function testGetCustomPropertyNamesWithoutPropertiesSet()
+    public function testGetCustomPropertyNamesWithoutPropertiesSet(): void
     {
         $value = $this->class->getCustomPropertyNames();
 
@@ -365,7 +365,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getRecipientsNumber
      */
-    public function testGetRecipientsNumber()
+    public function testGetRecipientsNumber(): void
     {
         $tokens = [
             '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',
@@ -384,7 +384,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getRecipientsCount
      */
-    public function testGetRecipientsCount()
+    public function testGetRecipientsCount(): void
     {
         $tokens = [
             '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',
@@ -403,7 +403,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getRecipients
      */
-    public function testGetRecipients()
+    public function testGetRecipients(): void
     {
         $tokens = [
             '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',
@@ -422,7 +422,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getRecipient
      */
-    public function testGetExistingRecipient()
+    public function testGetExistingRecipient(): void
     {
         $tokens = [
             '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',
@@ -441,7 +441,7 @@ class MessageGetTest extends MessageTest
      *
      * @covers \ApnsPHP\Message::getRecipient
      */
-    public function testGetOutOfBoundsRecipient()
+    public function testGetOutOfBoundsRecipient(): void
     {
         $tokens = [
             '1e82db91c7ceddd72bf33d74ae052ac9c84a065b35148ac401388843106a7485L',

@@ -21,7 +21,7 @@ class CustomMessageGetTest extends CustomMessageTest
      *
      * @covers \ApnsPHP\Message\CustomMessage::getActionLocKey
      */
-    public function testGetActionLocKey()
+    public function testGetActionLocKey(): void
     {
         $this->set_reflection_property_value('actionLocKey', 'My Action');
 
@@ -35,7 +35,7 @@ class CustomMessageGetTest extends CustomMessageTest
      *
      * @covers \ApnsPHP\Message\CustomMessage::getLocKey
      */
-    public function testGetLocKey()
+    public function testGetLocKey(): void
     {
         $this->set_reflection_property_value('locKey', 'My Alert');
 
@@ -49,7 +49,7 @@ class CustomMessageGetTest extends CustomMessageTest
      *
      * @covers \ApnsPHP\Message\CustomMessage::getLocArgs
      */
-    public function testGetLocArgs()
+    public function testGetLocArgs(): void
     {
         $this->set_reflection_property_value('locArgs', [ 'args' ]);
 
@@ -63,7 +63,7 @@ class CustomMessageGetTest extends CustomMessageTest
      *
      * @covers \ApnsPHP\Message\CustomMessage::getLaunchImage
      */
-    public function testGetLaunchImage()
+    public function testGetLaunchImage(): void
     {
         $this->set_reflection_property_value('launchImage', 'my-image');
 
@@ -77,7 +77,7 @@ class CustomMessageGetTest extends CustomMessageTest
      *
      * @covers \ApnsPHP\Message\CustomMessage::getSubTitle
      */
-    public function testGetSubTitle()
+    public function testGetSubTitle(): void
     {
         $this->set_reflection_property_value('subTitle', 'My amazing notification');
 

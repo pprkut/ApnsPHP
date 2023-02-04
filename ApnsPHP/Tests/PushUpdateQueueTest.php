@@ -21,7 +21,7 @@ class PushUpdateQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::updateQueue
      */
-    public function testUpdateQueueReturnsFalse()
+    public function testUpdateQueueReturnsFalse(): void
     {
         $method = $this->get_accessible_reflection_method('updateQueue');
         $result = $method->invoke($this->class);
@@ -34,7 +34,7 @@ class PushUpdateQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::updateQueue
      */
-    public function testUpdateQueueSucceedsWithErrorMessageParameter()
+    public function testUpdateQueueSucceedsWithErrorMessageParameter(): void
     {
         $errorMessage = [
             'identifier' => 3,
@@ -83,7 +83,7 @@ class PushUpdateQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::updateQueue
      */
-    public function testUpdateQueueDoesNotDeleteUnsentMessages()
+    public function testUpdateQueueDoesNotDeleteUnsentMessages(): void
     {
         $errorMessage = [
             'identifier' => 2,

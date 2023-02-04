@@ -21,7 +21,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getSendRetryTimes
      */
-    public function testGetSendRetryTimes()
+    public function testGetSendRetryTimes(): void
     {
         $value = $this->class->getSendRetryTimes();
 
@@ -33,7 +33,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getWriteInterval
      */
-    public function testGetWriteInterval()
+    public function testGetWriteInterval(): void
     {
         $value = $this->class->getWriteInterval();
 
@@ -45,7 +45,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getConnectTimeout
      */
-    public function testGetConnectTimeout()
+    public function testGetConnectTimeout(): void
     {
         $value = $this->class->getConnectTimeout();
 
@@ -57,7 +57,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getConnectRetryTimes
      */
-    public function testGetConnectRetryTimes()
+    public function testGetConnectRetryTimes(): void
     {
         $value = $this->class->getConnectRetryTimes();
 
@@ -69,7 +69,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getConnectRetryInterval
      */
-    public function testGetConnectRetryInterval()
+    public function testGetConnectRetryInterval(): void
     {
         $value = $this->class->getConnectRetryInterval();
 
@@ -81,7 +81,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getMessageQueue
      */
-    public function testGetMessageQueue()
+    public function testGetMessageQueue(): void
     {
         $this->set_reflection_property_value('messageQueue', [ 'queue' ]);
 
@@ -97,7 +97,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getMessageQueue
      */
-    public function testGetMessageQueueEmptiesQueue()
+    public function testGetMessageQueueEmptiesQueue(): void
     {
         $this->set_reflection_property_value('messageQueue', [ 'queue' ]);
 
@@ -113,7 +113,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getErrors
      */
-    public function testGetErrors()
+    public function testGetErrors(): void
     {
         $this->set_reflection_property_value('errors', [ 'errors' ]);
 
@@ -129,7 +129,7 @@ class PushGetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::getErrors
      */
-    public function testGetErrorsEmptiesErrors()
+    public function testGetErrorsEmptiesErrors(): void
     {
         $this->set_reflection_property_value('errors', [ 'errors' ]);
 

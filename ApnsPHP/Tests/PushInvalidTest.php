@@ -31,7 +31,7 @@ class PushInvalidTest extends PushTest
      *
      * @covers \ApnsPHP\Push::__construct
      */
-    public function testConstructWithInvalidEnvironment()
+    public function testConstructWithInvalidEnvironment(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage("Invalid environment '3'");
@@ -45,7 +45,7 @@ class PushInvalidTest extends PushTest
      *
      * @covers \ApnsPHP\Push::__construct
      */
-    public function testConstructWithNonExistingProviderCertificateFile()
+    public function testConstructWithNonExistingProviderCertificateFile(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage("Unable to read certificate file 'server_certificates_bundle_invalid.pem'");
@@ -58,7 +58,7 @@ class PushInvalidTest extends PushTest
      *
      * @covers \ApnsPHP\Push::__construct
      */
-    public function testConstructWithUnreadableProviderCertificateFile()
+    public function testConstructWithUnreadableProviderCertificateFile(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage("Unable to read certificate file 'server_certificates_bundle_unreadable.pem'");

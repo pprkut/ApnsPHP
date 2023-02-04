@@ -21,7 +21,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setSendRetryTimes
      */
-    public function testSetSendRetryTimes()
+    public function testSetSendRetryTimes(): void
     {
         $this->class->setSendRetryTimes(4);
 
@@ -33,7 +33,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setProviderCertificatePassphrase
      */
-    public function testSetProviderCertificatePassphrase()
+    public function testSetProviderCertificatePassphrase(): void
     {
         $this->class->setProviderCertificatePassphrase('password');
 
@@ -45,7 +45,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setTeamId
      */
-    public function testSetTeamId()
+    public function testSetTeamId(): void
     {
         $this->class->setTeamId('team1');
 
@@ -57,7 +57,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setKeyId
      */
-    public function testSetKeyId()
+    public function testSetKeyId(): void
     {
         $this->class->setKeyId('key1');
 
@@ -69,7 +69,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setWriteInterval
      */
-    public function testSetWriteInterval()
+    public function testSetWriteInterval(): void
     {
         $this->class->setWriteInterval(20000);
 
@@ -81,7 +81,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setConnectTimeout
      */
-    public function testSetConnectTimeout()
+    public function testSetConnectTimeout(): void
     {
         $this->class->setConnectTimeout(20);
 
@@ -93,7 +93,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setConnectRetryTimes
      */
-    public function testSetConnectRetryTimes()
+    public function testSetConnectRetryTimes(): void
     {
         $this->class->setConnectRetryTimes(4);
 
@@ -105,7 +105,7 @@ class PushSetTest extends PushTest
      *
      * @covers \ApnsPHP\Push::setConnectRetryInterval
      */
-    public function testSetConnectRetryInterval()
+    public function testSetConnectRetryInterval(): void
     {
         $this->class->setConnectRetryInterval(2000000);
 

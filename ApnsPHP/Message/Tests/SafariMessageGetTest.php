@@ -21,7 +21,7 @@ class SafariMessageGetTest extends SafariMessageTest
      *
      * @covers \ApnsPHP\Message\SafariMessage::getAction
      */
-    public function testGetAction()
+    public function testGetAction(): void
     {
         $this->set_reflection_property_value('action', 'My Action');
 
@@ -35,7 +35,7 @@ class SafariMessageGetTest extends SafariMessageTest
      *
      * @covers \ApnsPHP\Message\SafariMessage::getUrlArgs
      */
-    public function testGetUrlArgs()
+    public function testGetUrlArgs(): void
     {
         $this->set_reflection_property_value('urlArgs', [ 'args' ]);
 

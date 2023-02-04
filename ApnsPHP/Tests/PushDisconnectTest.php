@@ -21,7 +21,7 @@ class PushDisconnectTest extends PushTest
      *
      * @covers \ApnsPHP\Push::disconnect
      */
-    public function testDisconnectSuccess()
+    public function testDisconnectSuccess(): void
     {
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('logger', $this->logger);
@@ -40,7 +40,7 @@ class PushDisconnectTest extends PushTest
      *
      * @covers \ApnsPHP\Push::disconnect
      */
-    public function testDisconnectReturnsFalse()
+    public function testDisconnectReturnsFalse(): void
     {
         $result = $this->class->disconnect();
 

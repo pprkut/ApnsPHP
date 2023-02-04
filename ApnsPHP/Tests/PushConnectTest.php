@@ -24,7 +24,7 @@ class PushConnectTest extends PushTest
      *
      * @covers \ApnsPHP\Push::connect
      */
-    public function testConnectSuccess()
+    public function testConnectSuccess(): void
     {
         $this->set_reflection_property_value('logger', $this->logger);
 
@@ -54,7 +54,7 @@ class PushConnectTest extends PushTest
      *
      * @covers \ApnsPHP\Push::connect
      */
-    public function testConnectThrowsExceptionOnHttpInitFail()
+    public function testConnectThrowsExceptionOnHttpInitFail(): void
     {
         $this->set_reflection_property_value('connectRetryInterval', 0);
         $this->set_reflection_property_value('logger', $this->logger);

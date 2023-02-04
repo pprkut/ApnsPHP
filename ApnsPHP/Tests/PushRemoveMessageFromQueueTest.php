@@ -21,7 +21,7 @@ class PushRemoveMessageFromQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::removeMessageFromQueue
      */
-    public function testRemoveMessageFromQueueThrowsExceptionOnInvalidMessageID()
+    public function testRemoveMessageFromQueueThrowsExceptionOnInvalidMessageID(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage('Message ID format is not valid.');
@@ -35,7 +35,7 @@ class PushRemoveMessageFromQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::removeMessageFromQueue
      */
-    public function testRemoveMessageFromQueueThrowsExceptionOnMissingMessageID()
+    public function testRemoveMessageFromQueueThrowsExceptionOnMissingMessageID(): void
     {
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage('The Message ID 1 does not exists.');
@@ -49,7 +49,7 @@ class PushRemoveMessageFromQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::removeMessageFromQueue
      */
-    public function testRemoveMessageFromQueueRemovesMessageFromQueue()
+    public function testRemoveMessageFromQueueRemovesMessageFromQueue(): void
     {
         $queue = [
             1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ],
@@ -73,7 +73,7 @@ class PushRemoveMessageFromQueueTest extends PushTest
      *
      * @covers \ApnsPHP\Push::removeMessageFromQueue
      */
-    public function testRemoveMessageFromQueueRemovesMessageFromQueueAndAddsError()
+    public function testRemoveMessageFromQueueRemovesMessageFromQueueAndAddsError(): void
     {
         $queue = [
             1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ],
