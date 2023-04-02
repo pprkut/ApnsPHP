@@ -130,19 +130,19 @@ class Message
      * Custom message identifier.
      * @var string
      */
-    protected string $customIdentifier;
+    protected string $customIdentifier = '';
 
     /**
      * The topic of the remote notification, which is typically the bundle ID for your app.
      * @var string
      */
-    protected string $topic;
+    protected string $topic = '';
 
     /**
      * The collapse ID of the remote notification.
      * @var string
      */
-    protected string $collapseId;
+    protected string $collapseId = '';
 
     /**
      * The priority of the remote notification.
