@@ -30,7 +30,7 @@ require_once 'vendor/autoload.php';
 
 class SampleLogger extends \Psr\Log\AbstractLogger
 {
-	public function log($level, $message, array $context = array())
+	public function log($level, $message, array $context = array()): void
 	{
 		printf("%s: %s ApnsPHP[%d]: %s\n", date('r'), strtoupper($level), getmypid(), trim($message));
 	}
