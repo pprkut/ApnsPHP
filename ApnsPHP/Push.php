@@ -53,12 +53,6 @@ class Push
     public const CONNECT_RETRY_INTERVAL = 1000000;
 
     /**
-     * Default socket select timeout in micro seconds.
-     * @var int
-     */
-    public const SOCKET_SELECT_TIMEOUT = 1000000;
-
-    /**
      * Payload command.
      * @var int
      */
