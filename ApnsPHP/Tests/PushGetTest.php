@@ -3,8 +3,8 @@
 /**
  * This file contains the PushGetTest class.
  *
- * @package ApnsPHP
- * @author  Heinz Wiesinger <heinz.wiesinger@moveagency.com>
+ * SPDX-FileCopyrightText: Copyright 2023 Move Agency Group B.V., Zwolle, The Netherlands
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 namespace ApnsPHP\Tests;
