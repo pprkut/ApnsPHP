@@ -1,0 +1,32 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ApnsPHP
+Upstream-Contact: Move Backend Team <backend@moveagency.com>
+Source: https://github.com/move-backend/ApnsPHP
+
+Files: composer.json
+Copyright: 2013 korchasa (korchasa@gmail.com)
+           2014 Jonathan Bender (jlbender@gmail.com)
+           2014 Aldo Armiento (aldo.armiento@gmail.com)
+           2021 M2mobi B.V., Amsterdam, The Netherlands
+           2022 Move Agency Group B.V., Zwolle, The Netherlands
+License: CC0-1.0
+
+Files: README.md
+Copyright: 2012 Aldo Armiento (aldo.armiento@gmail.com)
+           2021 M2mobi B.V., Amsterdam, The Netherlands
+           2022 Move Agency Group B.V., Zwolle, The Netherlands
+License: CC0-1.0
+
+Files: doc/CertificateCreation.md
+Copyright: 2015 Luca Bruno (luca.bruno@immobiliare.it)
+           2016 Aldo Armiento (aldo.armiento@gmail.com)
+           2021 M2mobi B.V., Amsterdam, The Netherlands
+           2022 Move Agency Group B.V., Zwolle, The Netherlands
+License: CC0-1.0
+
+Files: doc/logo.png
+Copyright: 2015 Luca Bruno (luca.bruno@immobiliare.it)
+           2015 Aldo Armiento (aldo.armiento@gmail.com)
+           2021 M2mobi B.V., Amsterdam, The Netherlands
+           2022 Move Agency Group B.V., Zwolle, The Netherlands
+License: CC0-1.0
