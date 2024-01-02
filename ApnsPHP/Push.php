@@ -638,6 +638,15 @@ class Push
             CURLOPT_POSTFIELDS => $message->getPayload()
             ]) && ($reply = curl_exec($this->hSocket)) !== false)
         ) {
+            $errorCode = curl_errno($this->hSocket);
+
+            if ($errorCode > 0) {
+                $this->logger->error('HTTP request error code: {code}; message: {message}.', [
+                    'code' => $errorCode,
+                    'message' => curl_error($this->hSocket),
+                ]);
+            }
+
             return false;
         }
 
