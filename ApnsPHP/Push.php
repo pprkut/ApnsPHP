@@ -13,6 +13,7 @@ use DateTimeImmutable;
 use ApnsPHP\Push\Exception;
 use Psr\Log\LoggerInterface;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Configuration;
 
@@ -475,13 +476,15 @@ class Push
      */
     protected function getJsonWebToken(): string
     {
-        $key = InMemory::file($this->providerCertFile);
-        return Configuration::forUnsecuredSigner()->builder()
-            ->issuedBy($this->providerTeamId)
-            ->issuedAt(new DateTimeImmutable())
-            ->withHeader('kid', $this->providerKeyId)
-            ->getToken(Sha256::create(), $key)
-            ->toString();
+        $key          = InMemory::file($this->providerCertFile);
+        $signer       = new Sha256(new MultibyteStringConverter());
+        $tokenBuilder = Configuration::forSymmetricSigner($signer, $key)->builder();
+
+        return $tokenBuilder->issuedBy($this->providerTeamId)
+                            ->issuedAt(new DateTimeImmutable())
+                            ->withHeader('kid', $this->providerKeyId)
+                            ->getToken($signer, $key)
+                            ->toString();
     }
 
     /**
