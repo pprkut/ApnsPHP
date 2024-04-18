@@ -1,6 +1,9 @@
 <?php
+
 /**
  * Push demo
+ *
+ * phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols, PSR1.Classes.ClassDeclaration.MissingNamespace
  *
  * SPDX-FileCopyrightText: Copyright 2010 Aldo Armiento (aldo.armiento@gmail.com)
  * SPDX-FileCopyrightText: Copyright 2021 M2mobi B.V., Amsterdam, The Netherlands
@@ -19,17 +22,17 @@ require_once 'vendor/autoload.php';
 
 class SampleLogger extends \Psr\Log\AbstractLogger
 {
-	public function log($level, $message, array $context = array()): void
-	{
-		printf("%s: %s ApnsPHP[%d]: %s\n", date('r'), strtoupper($level), getmypid(), trim($message));
-	}
+    public function log($level, $message, array $context = []): void
+    {
+        printf("%s: %s ApnsPHP[%d]: %s\n", date('r'), strtoupper($level), getmypid(), trim($message));
+    }
 }
 
 // Instantiate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
-	\ApnsPHP\Push::ENVIRONMENT_SANDBOX,
-	'UniversalPushNotificationClientSSLCertificate.p8',
-	new SampleLogger(),
+    \ApnsPHP\Push::ENVIRONMENT_SANDBOX,
+    'UniversalPushNotificationClientSSLCertificate.p8',
+    new SampleLogger(),
 );
 
 $push->setTeamId('sgfdgfdfgd');
@@ -64,10 +67,10 @@ $message->setText('Hello APNs-enabled device!');
 $message->setSound();
 
 // Set a custom property
-$message->setCustomProperty('acme2', array('bang', 'whiz'));
+$message->setCustomProperty('acme2', ['bang', 'whiz']);
 
 // Set another custom property
-$message->setCustomProperty('acme3', array('bing', 'bong'));
+$message->setCustomProperty('acme3', ['bing', 'bong']);
 
 // Set the expiry value to 30 seconds
 $message->setExpiry(30);
@@ -84,5 +87,5 @@ $push->disconnect();
 // Examine the error message container
 $aErrorQueue = $push->getErrors();
 if (!empty($aErrorQueue)) {
-	var_dump($aErrorQueue);
+    var_dump($aErrorQueue);
 }
