@@ -68,8 +68,8 @@ class PushHttpInitTest extends PushTest
                         ->getMock();
 
         $token = new Plain(
-            new DataSet([ 'headers' ], 'eHeaders'),
-            new DataSet([ 'claims' ], 'eClaims'),
+            new DataSet([ 'headers' => 'foo' ], 'eHeaders'),
+            new DataSet([ 'claims' => 'bar' ], 'eClaims'),
             new Signature('signature', 'eSignature'),
         );
 
@@ -148,8 +148,8 @@ class PushHttpInitTest extends PushTest
                         ->getMock();
 
         $token = new Plain(
-            new DataSet([ 'headers' ], 'eHeaders'),
-            new DataSet([ 'claims' ], 'eClaims'),
+            new DataSet([ 'headers' => 'foo' ], 'eHeaders'),
+            new DataSet([ 'claims' => 'bar' ], 'eClaims'),
             new Signature('signature', 'eSignature'),
         );
 
