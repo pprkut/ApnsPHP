@@ -39,7 +39,7 @@ class PushSendTest extends PushTest
      */
     public function testSendThrowsExceptionOnEmptyQueue(): void
     {
-        $this->set_reflection_property_value('hSocket', new stdClass());
+        $this->set_reflection_property_value('hSocket', curl_init());
 
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage('No notifications queued to be sent');
@@ -66,9 +66,6 @@ class PushSendTest extends PushTest
         $this->mock_function('curl_close', function () {
             return null;
         });
-        $this->mock_function('curl_init', function () {
-            return new stdClass();
-        });
         $this->mock_function('curl_errno', function () {
             return 0;
         });
@@ -86,7 +83,7 @@ class PushSendTest extends PushTest
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('hSocket', new stdClass());
+        $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
         $this->set_reflection_property_value('writeInterval', 0);
@@ -117,7 +114,6 @@ class PushSendTest extends PushTest
         $this->unmock_function('curl_setopt_array');
         $this->unmock_function('curl_getinfo');
         $this->unmock_function('curl_close');
-        $this->unmock_function('curl_init');
     }
 
     /**
@@ -139,14 +135,11 @@ class PushSendTest extends PushTest
         $this->mock_function('curl_close', function () {
             return null;
         });
-        $this->mock_function('curl_init', function () {
-            return new stdClass();
-        });
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('hSocket', new stdClass());
+        $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
         $this->set_reflection_property_value('writeInterval', 0);
@@ -190,7 +183,6 @@ class PushSendTest extends PushTest
         $this->unmock_function('curl_setopt_array');
         $this->unmock_function('curl_getinfo');
         $this->unmock_function('curl_close');
-        $this->unmock_function('curl_init');
     }
 
     /**
@@ -218,14 +210,11 @@ class PushSendTest extends PushTest
         $this->mock_function('curl_error', function () {
             return '';
         });
-        $this->mock_function('curl_init', function () {
-            return new stdClass();
-        });
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('hSocket', new stdClass());
+        $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
         $this->set_reflection_property_value('writeInterval', 0);
@@ -256,7 +245,6 @@ class PushSendTest extends PushTest
         $this->unmock_function('curl_setopt_array');
         $this->unmock_function('curl_getinfo');
         $this->unmock_function('curl_close');
-        $this->unmock_function('curl_init');
     }
 
     /**
@@ -278,14 +266,11 @@ class PushSendTest extends PushTest
         $this->mock_function('curl_close', function () {
             return null;
         });
-        $this->mock_function('curl_init', function () {
-            return new stdClass();
-        });
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
         $this->set_reflection_property_value('environment', 1);
-        $this->set_reflection_property_value('hSocket', new stdClass());
+        $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
         $this->set_reflection_property_value('writeInterval', 0);
@@ -304,6 +289,5 @@ class PushSendTest extends PushTest
         $this->unmock_function('curl_setopt_array');
         $this->unmock_function('curl_getinfo');
         $this->unmock_function('curl_close');
-        $this->unmock_function('curl_init');
     }
 }

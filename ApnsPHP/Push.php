@@ -9,13 +9,14 @@
 
 namespace ApnsPHP;
 
-use DateTimeImmutable;
 use ApnsPHP\Push\Exception;
-use Psr\Log\LoggerInterface;
+use CurlHandle;
+use DateTimeImmutable;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Ecdsa\MultibyteStringConverter;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 use Lcobucci\JWT\Configuration;
+use Psr\Log\LoggerInterface;
 
 /**
  * The Push Notification Provider.
@@ -147,9 +148,9 @@ class Push
 
     /**
      * SSL Socket.
-     * @var resource|\CurlHandle|null
+     * @var CurlHandle|null
      */
-    protected $hSocket;
+    protected ?CurlHandle $hSocket;
 
     /**
      * HTTP/2 Error-response messages.
@@ -412,7 +413,7 @@ class Push
      */
     public function disconnect(): bool
     {
-        if (is_resource($this->hSocket) || is_object($this->hSocket)) {
+        if (is_object($this->hSocket)) {
             $this->logger->info('Disconnected.');
             curl_close($this->hSocket);
             unset($this->hSocket); // curl_close($handle) has no effect in PHP >= 8.0

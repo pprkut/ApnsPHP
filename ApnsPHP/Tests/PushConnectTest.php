@@ -29,9 +29,6 @@ class PushConnectTest extends PushTest
     {
         $this->set_reflection_property_value('logger', $this->logger);
 
-        $this->mock_function('curl_init', function () {
-            return new stdClass();
-        });
         $this->mock_function('curl_setopt_array', function () {
             return true;
         });
@@ -46,7 +43,6 @@ class PushConnectTest extends PushTest
 
         $this->class->connect();
 
-        $this->unmock_function('curl_init');
         $this->unmock_function('curl_setopt_array');
     }
 
