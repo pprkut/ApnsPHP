@@ -12,31 +12,10 @@
 
     <testsuites>
         <testsuite name="Base">
-            <file>ApnsPHP/Tests/MessageSetTest.php</file>
-            <file>ApnsPHP/Tests/MessageGetTest.php</file>
-            <file>ApnsPHP/Tests/MessageAddRecipientTest.php</file>
-            <file>ApnsPHP/Tests/MessageSelfForRecipientTest.php</file>
-            <file>ApnsPHP/Tests/MessageGetPayloadDictionaryTest.php</file>
-            <file>ApnsPHP/Tests/MessageGetPayloadTest.php</file>
-            <file>ApnsPHP/Tests/PushGetTest.php</file>
-            <file>ApnsPHP/Tests/PushSetTest.php</file>
-            <file>ApnsPHP/Tests/PushDisconnectTest.php</file>
-            <file>ApnsPHP/Tests/PushHttpInitTest.php</file>
-            <file>ApnsPHP/Tests/PushConnectTest.php</file>
-            <file>ApnsPHP/Tests/PushAddTest.php</file>
-            <file>ApnsPHP/Tests/PushSendTest.php</file>
-            <file>ApnsPHP/Tests/PushHttpSendTest.php</file>
-            <file>ApnsPHP/Tests/PushUpdateQueueTest.php</file>
-            <file>ApnsPHP/Tests/PushRemoveMessageFromQueueTest.php</file>
-            <file>ApnsPHP/Tests/PushInvalidTest.php</file>
+            <directory>ApnsPHP/Tests/</directory>
         </testsuite>
         <testsuite name="Message">
-            <file>ApnsPHP/Message/Tests/CustomMessageTest.php</file>
-            <file>ApnsPHP/Message/Tests/CustomMessageGetTest.php</file>
-            <file>ApnsPHP/Message/Tests/CustomMessageGetPayloadDictionaryTest.php</file>
-            <file>ApnsPHP/Message/Tests/SafariMessageTest.php</file>
-            <file>ApnsPHP/Message/Tests/SafariMessageGetTest.php</file>
-            <file>ApnsPHP/Message/Tests/SafariMessageGetPayloadDictionaryTest.php</file>
+            <directory>ApnsPHP/Message/Tests/</directory>
         </testsuite>
     </testsuites>
 
