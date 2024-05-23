@@ -12,6 +12,7 @@ namespace ApnsPHP\Tests;
 
 use ApnsPHP\Exception;
 use stdClass;
+use Throwable;
 
 /**
  * This class contains tests for the connect function
@@ -86,6 +87,12 @@ class PushConnectTest extends PushTest
         $this->expectException('ApnsPHP\Exception');
         $this->expectExceptionMessage('Unable to initialize HTTP/2 backend.');
 
-        $this->class->connect();
+        try {
+            $this->class->connect();
+        } catch (Throwable $e) {
+            $this->unmock_function('curl_setopt_array');
+
+            throw $e;
+        }
     }
 }
