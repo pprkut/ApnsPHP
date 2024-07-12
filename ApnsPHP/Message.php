@@ -11,6 +11,7 @@ namespace ApnsPHP;
 
 use ApnsPHP\Message\Exception;
 use ApnsPHP\Message\Priority;
+use ApnsPHP\Message\PushType;
 
 /**
  * The Push Notification Message.
@@ -33,21 +34,6 @@ class Message
      * @var string
      */
     protected const APPLE_RESERVED_NAMESPACE = 'aps';
-
-    /**
-     * Supported push types.
-     * @var string[]
-     */
-    protected const APNS_PUSH_TYPES = [
-        'alert',
-        'background',
-        'location',
-        'voip',
-        'complication',
-        'fileprovider',
-        'mdm',
-        'liveactivity',
-    ];
 
     /**
      * If the JSON payload is longer than maximum allowed size, shorts message text.
@@ -149,9 +135,9 @@ class Message
 
     /**
      * Push type
-     * @var 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity'|null
+     * @var PushType|null
      */
-    private ?string $pushType = null;
+    private ?PushType $pushType = null;
 
     /**
      * Constructor.
@@ -740,23 +726,19 @@ class Message
     /**
      * Set the push type.
      *
-     * @param 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity' $pushType
+     * @param PushType $pushType
      */
-    public function setPushType(string $pushType): void
+    public function setPushType(PushType $pushType): void
     {
-        if (!in_array($pushType, self::APNS_PUSH_TYPES)) {
-            throw new Exception('Invalid push type');
-        }
-
         $this->pushType = $pushType;
     }
 
     /**
      * Get the push type.
      *
-     * @return 'alert'|'background'|'location'|'voip'|'complication'|'fileprovider'|'mdm'|'liveactivity'|null Push type
+     * @return PushType|null Push type
      */
-    public function getPushType(): ?string
+    public function getPushType(): ?PushType
     {
         return $this->pushType;
     }

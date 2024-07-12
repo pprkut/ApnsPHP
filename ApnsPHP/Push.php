@@ -624,7 +624,7 @@ class Push
             $headers[] = sprintf('apns-id: %s', $message->getCustomIdentifier());
         }
         if ($message->getPushType() !== null) {
-            $headers[] = sprintf('apns-push-type: %s', $message->getPushType());
+            $headers[] = sprintf('apns-push-type: %s', $message->getPushType()->value);
         }
         if (!empty($this->providerToken)) {
             $headers[] = sprintf('Authorization: Bearer %s', $this->providerToken);

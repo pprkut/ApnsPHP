@@ -11,6 +11,7 @@
 namespace ApnsPHP\Tests;
 
 use ApnsPHP\Message\Priority;
+use ApnsPHP\Message\PushType;
 
 /**
  * This class contains tests for the httpSend function
@@ -47,7 +48,7 @@ class PushHttpSendTest extends PushTest
 
         $this->message->expects($this->exactly(2))
                       ->method('getPushType')
-                      ->will($this->returnValue('alert'));
+                      ->will($this->returnValue(PushType::Alert));
 
         $this->set_reflection_property_value('providerToken', 'jwt');
     }

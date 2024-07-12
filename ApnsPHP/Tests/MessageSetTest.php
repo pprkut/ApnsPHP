@@ -10,6 +10,7 @@
 namespace ApnsPHP\Tests;
 
 use ApnsPHP\Message\Priority;
+use ApnsPHP\Message\PushType;
 
 /**
  * This class contains tests for the setter functions
@@ -71,14 +72,15 @@ class MessageSetTest extends MessageTest
     public function validPushTypeProvider(): array
     {
         $data   = [];
-        $data[] = [ 'alert' ];
-        $data[] = [ 'background' ];
-        $data[] = [ 'location' ];
-        $data[] = [ 'voip' ];
-        $data[] = [ 'complication' ];
-        $data[] = [ 'fileprovider' ];
-        $data[] = [ 'mdm' ];
-        $data[] = [ 'liveactivity' ];
+        $data[] = [ PushType::Alert ];
+        $data[] = [ PushType::Background ];
+        $data[] = [ PushType::Location ];
+        $data[] = [ PushType::Voip ];
+        $data[] = [ PushType::Complication ];
+        $data[] = [ PushType::FileProvider ];
+        $data[] = [ PushType::Mdm ];
+        $data[] = [ PushType::LiveActivity ];
+        $data[] = [ PushType::PushToTalk ];
 
         return $data;
     }
@@ -404,28 +406,15 @@ class MessageSetTest extends MessageTest
     /**
      * Test that setPushType() sets a push type.
      *
-     * @param string $type Push type value
+     * @param PushType $type Push type value
      *
      * @dataProvider validPushTypeProvider
      * @covers       \ApnsPHP\Message::setPushType
      */
-    public function testSetValidPushType(string $type): void
+    public function testSetValidPushType(PushType $type): void
     {
         $this->class->setPushType($type);
 
         $this->assertPropertySame('pushType', $type);
-    }
-
-    /**
-     * Test that setPushType() throws an exception when trying to set an invalid push type.
-     *
-     * @covers \ApnsPHP\Message::setPushType
-     */
-    public function testSetInvalidPushType(): void
-    {
-        $this->expectException('ApnsPHP\Message\Exception');
-        $this->expectExceptionMessage('Invalid push type');
-
-        $this->class->setPushType('news');
     }
 }

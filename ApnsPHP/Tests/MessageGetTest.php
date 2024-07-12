@@ -10,6 +10,7 @@
 namespace ApnsPHP\Tests;
 
 use ApnsPHP\Message\Priority;
+use ApnsPHP\Message\PushType;
 
 /**
  * This class contains tests for the getter functions
@@ -207,11 +208,11 @@ class MessageGetTest extends MessageTest
      */
     public function testGetPushType(): void
     {
-        $this->set_reflection_property_value('pushType', 'alert');
+        $this->set_reflection_property_value('pushType', PushType::Alert);
 
         $value = $this->class->getPushType();
 
-        $this->assertSame('alert', $value);
+        $this->assertSame(PushType::Alert, $value);
     }
 
     /**
