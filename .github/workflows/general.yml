@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright 2023 Move Agency Group B.V., Zwolle, The Netherlands
 # SPDX-License-Identifier: CC0-1.0
 
-name: REUSE Compliance Check
+name: General Tests
 on: [push, pull_request]
 
 jobs:
@@ -16,3 +16,15 @@ jobs:
         uses: fsfe/reuse-action@v1
         with:
           args: --include-submodules lint
+  typos:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    name: "Spellcheck (typos)"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: typos-action
+        uses: crate-ci/typos@master
+        with:
+          config: typos.toml
