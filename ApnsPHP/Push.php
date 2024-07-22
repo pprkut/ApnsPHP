@@ -27,18 +27,6 @@ use Psr\Log\LoggerInterface;
 class Push
 {
     /**
-     * Production environment.
-     * @var int
-     */
-    public const ENVIRONMENT_PRODUCTION = 0;
-
-    /**
-     * Sandbox environment.
-     * @var int
-     */
-    public const ENVIRONMENT_SANDBOX = 1;
-
-    /**
      * Device token length.
      * @var int
      */
@@ -82,9 +70,9 @@ class Push
 
     /**
      * Active environment.
-     * @var int
+     * @var Environment
      */
-    protected int $environment;
+    protected Environment $environment;
 
     /**
      * Connect timeout in seconds.
@@ -176,15 +164,6 @@ class Push
     protected int $sendRetryTimes = 3;
 
     /**
-     * HTTP/2 Service URLs environments.
-     * @var array<int,string>
-     */
-    protected array $HTTPServiceURLs = [
-        'https://api.push.apple.com:443', // Production environment
-        'https://api.development.push.apple.com:443' // Sandbox environment
-    ];
-
-    /**
      * Message queue.
      * @var array
      */
@@ -199,17 +178,12 @@ class Push
     /**
      * Constructor.
      *
-     * @param int             $environment             Environment.
+     * @param Environment     $environment             Environment.
      * @param string          $providerCertificateFile Provider certificate file with key (Bundled PEM/P8).
      * @param LoggerInterface $logger                  A Logger implementing PSR-3
      */
-    public function __construct(int $environment, string $providerCertificateFile, LoggerInterface $logger)
+    public function __construct(Environment $environment, string $providerCertificateFile, LoggerInterface $logger)
     {
-        if ($environment != self::ENVIRONMENT_PRODUCTION && $environment != self::ENVIRONMENT_SANDBOX) {
-            throw new Exception(
-                "Invalid environment '{$environment}'"
-            );
-        }
         $this->environment = $environment;
 
         if (!is_readable($providerCertificateFile)) {
@@ -635,7 +609,7 @@ class Push
             CURLOPT_POST => true,
             CURLOPT_URL => sprintf(
                 '%s/3/device/%s',
-                $this->HTTPServiceURLs[$this->environment],
+                $this->environment->getUrl(),
                 $message->getRecipient()
             ),
             CURLOPT_HTTPHEADER => $headers,

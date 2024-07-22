@@ -10,6 +10,7 @@
 
 namespace ApnsPHP\Tests;
 
+use ApnsPHP\Environment;
 use stdClass;
 
 /**
@@ -82,7 +83,7 @@ class PushSendTest extends PushTest
         ];
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
@@ -138,7 +139,7 @@ class PushSendTest extends PushTest
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
@@ -213,7 +214,7 @@ class PushSendTest extends PushTest
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);
@@ -269,7 +270,7 @@ class PushSendTest extends PushTest
 
         $message = [ 1 => [ 'MESSAGE' => $this->message, 'ERRORS' => [] ] ];
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
         $this->set_reflection_property_value('hSocket', curl_init());
         $this->set_reflection_property_value('messageQueue', $message);
         $this->set_reflection_property_value('logger', $this->logger);

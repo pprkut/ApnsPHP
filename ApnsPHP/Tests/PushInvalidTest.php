@@ -9,6 +9,7 @@
 
 namespace ApnsPHP\Tests;
 
+use ApnsPHP\Environment;
 use ApnsPHP\Push;
 
 /**
@@ -27,19 +28,6 @@ class PushInvalidTest extends PushTest
     }
 
     /**
-     * Test that trying to instantiate the Push class with an invalid environment throws an exception.
-     *
-     * @covers \ApnsPHP\Push::__construct
-     */
-    public function testConstructWithInvalidEnvironment(): void
-    {
-        $this->expectException('ApnsPHP\Push\Exception');
-        $this->expectExceptionMessage("Invalid environment '3'");
-
-        $this->class = new Push(3, 'server_certificates_bundle_sandbox.pem', $this->logger);
-    }
-
-    /**
      * Test that trying to instantiate the Push class with an non-existing provider certificate file
      * throws an exception.
      *
@@ -50,7 +38,7 @@ class PushInvalidTest extends PushTest
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage("Unable to read certificate file 'server_certificates_bundle_invalid.pem'");
 
-        $this->class = new Push(0, 'server_certificates_bundle_invalid.pem', $this->logger);
+        $this->class = new Push(Environment::Production, 'server_certificates_bundle_invalid.pem', $this->logger);
     }
 
     /**
@@ -63,6 +51,6 @@ class PushInvalidTest extends PushTest
         $this->expectException('ApnsPHP\Push\Exception');
         $this->expectExceptionMessage("Unable to read certificate file 'server_certificates_bundle_unreadable.pem'");
 
-        $this->class = new Push(0, 'server_certificates_bundle_unreadable.pem', $this->logger);
+        $this->class = new Push(Environment::Production, 'server_certificates_bundle_unreadable.pem', $this->logger);
     }
 }

@@ -30,7 +30,7 @@ class SampleLogger extends \Psr\Log\AbstractLogger
 
 // Instantiate a new ApnsPHP_Push object
 $push = new \ApnsPHP\Push(
-    \ApnsPHP\Push::ENVIRONMENT_SANDBOX,
+    \ApnsPHP\Environment::Sandbox,
     'UniversalPushNotificationClientSSLCertificate.p8',
     new SampleLogger(),
 );

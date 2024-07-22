@@ -10,6 +10,7 @@
 
 namespace ApnsPHP\Tests;
 
+use ApnsPHP\Environment;
 use ApnsPHP\Message;
 use ApnsPHP\Push;
 use Lunr\Halo\LunrBaseTest;
@@ -49,7 +50,7 @@ abstract class PushTest extends LunrBaseTest
                               ->getMock();
 
         $this->class = new Push(
-            Push::ENVIRONMENT_SANDBOX,
+            Environment::Sandbox,
             'server_certificates_bundle_sandbox.pem',
             $this->logger,
         );

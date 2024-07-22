@@ -10,6 +10,7 @@
 
 namespace ApnsPHP\Tests;
 
+use ApnsPHP\Environment;
 use ApnsPHP\Message\Priority;
 use ApnsPHP\Message\PushType;
 
@@ -64,7 +65,7 @@ class PushHttpSendTest extends PushTest
             return false;
         });
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
         $this->set_reflection_property_value('hSocket', curl_init());
 
         $this->setHttpHeaders();
@@ -110,7 +111,7 @@ class PushHttpSendTest extends PushTest
             return 'OpenSSL SSL_read: error:14094415:SSL routines:ssl3_read_bytes:sslv3 alert certificate expired';
         });
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
 
         $this->setHttpHeaders();
 
@@ -152,7 +153,7 @@ class PushHttpSendTest extends PushTest
             return 500;
         });
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
 
         $this->setHttpHeaders();
 
@@ -195,7 +196,7 @@ class PushHttpSendTest extends PushTest
             return 200;
         });
 
-        $this->set_reflection_property_value('environment', 1);
+        $this->set_reflection_property_value('environment', Environment::Sandbox);
 
         $this->setHttpHeaders();
 
