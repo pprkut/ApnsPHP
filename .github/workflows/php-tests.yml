@@ -97,7 +97,7 @@ jobs:
         run: phpstan analyse ApnsPHP -l5
 
   conclusion:
-    needs: [phpunit, phpcs, phpstan, sample_push]
+    needs: [phpunit, phpcs, phpstan]
     continue-on-error: true
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'move-backend' && github.ref_name == 'master' }}
