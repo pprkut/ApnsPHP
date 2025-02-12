@@ -18,6 +18,28 @@ use ApnsPHP\Message;
  * Please refer to Table 3-2 for more information.
  *
  * @see http://tinyurl.com/ApplePushNotificationPayload
+ *
+ * @phpstan-type PayloadDictionary ReservedPayloadDictionary&CustomPayloadDictionary
+ * @phpstan-type CustomPayloadDictionary array<string,scalar|array<array-key,mixed>>
+ * @phpstan-type ReservedPayloadDictionary array{
+ *     aps: array{
+ *         alert?: array{
+ *             body?: string,
+ *             action-loc-key?: ?non-empty-string,
+ *             loc-key?: string,
+ *             loc-args?: string[],
+ *             launch-image?: string,
+ *             title?: string,
+ *             subtitle?: string,
+ *         },
+ *         badge?: int,
+ *         sound?: string,
+ *         content-available?: int,
+ *         mutable-content?: int,
+ *         category?: string,
+ *         thread-id?: string,
+ *     },
+ * }
  */
 class CustomMessage extends Message
 {
@@ -35,7 +57,7 @@ class CustomMessage extends Message
 
     /**
      * Variable string values to appear in place of the format specifiers in loc-key.
-     * @var array
+     * @var string[]
      */
     protected array $locArgs;
 
@@ -105,7 +127,7 @@ class CustomMessage extends Message
      * Set the variable string values to appear in place of the format specifiers
      * in loc-key.
      *
-     * @param array $locArgs The variable string values.
+     * @param string[] $locArgs The variable string values.
      */
     public function setLocArgs(array $locArgs): void
     {
@@ -116,7 +138,7 @@ class CustomMessage extends Message
      * Get the variable string values to appear in place of the format specifiers
      * in loc-key.
      *
-     * @return array The variable string values.
+     * @return string[] The variable string values.
      */
     public function getLocArgs(): array
     {
@@ -173,7 +195,7 @@ class CustomMessage extends Message
     /**
      * Get the payload dictionary.
      *
-     * @return array The payload dictionary.
+     * @return PayloadDictionary The payload dictionary.
      */
     protected function getPayloadDictionary(): array
     {

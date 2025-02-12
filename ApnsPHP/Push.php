@@ -23,6 +23,16 @@ use Psr\Log\LoggerInterface;
  *
  * The class manages a message queue and sends notifications payload to Apple Push
  * Notification Service.
+ *
+ * @phpstan-type MessageError array{
+ *     identifier: string,
+ *     statusCode: int,
+ *     statusMessage: string,
+ * }
+ * @phpstan-type MessageEnvelope array{
+ *     MESSAGE: Message,
+ *     ERRORS: MessageError[]
+ * }
  */
 class Push
 {
@@ -141,13 +151,13 @@ class Push
 
     /**
      * Message queue.
-     * @var array
+     * @var MessageEnvelope[]
      */
     protected array $messageQueue = [];
 
     /**
      * Error container.
-     * @var array
+     * @var MessageEnvelope[]
      */
     protected array $errors = [];
 
@@ -626,7 +636,7 @@ class Push
      *
      * @param bool $empty Empty the message queue (optional).
      *
-     * @return array Array of messages left on the queue.
+     * @return MessageEnvelope[] Array of messages left on the queue.
      */
     public function getMessageQueue(bool $empty = true): array
     {
@@ -643,7 +653,7 @@ class Push
      *
      * @param bool $empty Empty the message container.
      *
-     * @return array Array of messages not delivered because one or more errors occurred.
+     * @return MessageEnvelope[] Array of messages not delivered because one or more errors occurred.
      */
     public function getErrors(bool $empty = true): array
     {
@@ -657,7 +667,7 @@ class Push
     /**
      * Checks for error message and deletes messages successfully sent from message queue.
      *
-     * @param array $errorMessages The error message (optional).
+     * @param MessageError $errorMessages The error message (optional).
      *
      * @return bool True if an error was received.
      */

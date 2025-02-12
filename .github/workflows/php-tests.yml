@@ -94,7 +94,7 @@ jobs:
         run: composer update
 
       - name: Run PHPStan
-        run: phpstan analyse ApnsPHP -l5
+        run: phpstan analyse ApnsPHP -l6
 
   conclusion:
     needs: [phpunit, phpcs, phpstan]

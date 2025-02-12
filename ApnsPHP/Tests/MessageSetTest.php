@@ -22,7 +22,7 @@ class MessageSetTest extends MessageTest
     /**
      * Unit test data provider for reserved apple namespace keys.
      *
-     * @return array Variations of the reserved apple namespace key
+     * @return array<string[]> Variations of the reserved apple namespace key
      */
     public function reservedAppleNamespaceKeyProvider(): array
     {
@@ -38,7 +38,7 @@ class MessageSetTest extends MessageTest
     /**
      * Unit test data provider for valid custom identifiers.
      *
-     * @return array Variations of valid custom identifiers
+     * @return array<string[]> Variations of valid custom identifiers
      */
     public function validCustomIdentifierProvider(): array
     {
@@ -52,7 +52,7 @@ class MessageSetTest extends MessageTest
     /**
      * Unit test data provider for valid message priorities.
      *
-     * @return array Variations of a valid message priority
+     * @return array<Priority[]> Variations of a valid message priority
      */
     public function validPriorityProvider(): array
     {
@@ -67,7 +67,7 @@ class MessageSetTest extends MessageTest
     /**
      * Unit test data provider for valid push types.
      *
-     * @return array Variations of a valid push type
+     * @return array<PushType[]> Variations of a valid push type
      */
     public function validPushTypeProvider(): array
     {
