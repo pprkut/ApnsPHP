@@ -15,6 +15,17 @@ use ApnsPHP\Message;
  * The SafariMessage Push Notification Message.
  *
  * The class represents a SafariMessage Push Notification message.
+ *
+ * @phpstan-type PayloadDictionary array{
+ *     aps: array{
+ *         alert: array{
+ *             title?: string,
+ *             body?: string,
+ *             action?: string,
+ *             url-args?: string[],
+ *         },
+ *     },
+ * }
  */
 class SafariMessage extends Message
 {
@@ -26,7 +37,7 @@ class SafariMessage extends Message
 
     /**
      * Variable string values to appear in place of the format specifiers in urlFormatString.
-     * @var array
+     * @var string[]
      */
     protected array $urlArgs;
 
@@ -54,7 +65,7 @@ class SafariMessage extends Message
      * Set the variable string values to appear in place of the format specifiers
      * in urlFormatString.
      *
-     * @param array $urlArgs The variable string values.
+     * @param string[] $urlArgs The variable string values.
      */
     public function setUrlArgs(array $urlArgs): void
     {
@@ -65,7 +76,7 @@ class SafariMessage extends Message
      * Get the variable string values to appear in place of the format specifiers
      * in urlFormatString.
      *
-     * @return array The variable string values.
+     * @return string[] The variable string values.
      */
     public function getUrlArgs(): array
     {
@@ -75,7 +86,7 @@ class SafariMessage extends Message
     /**
      * Get the payload dictionary.
      *
-     * @return array The payload dictionary.
+     * @return PayloadDictionary The payload dictionary.
      */
     protected function getPayloadDictionary(): array
     {

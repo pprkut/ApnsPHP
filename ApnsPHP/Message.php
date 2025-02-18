@@ -20,6 +20,23 @@ use ApnsPHP\Message\PushType;
  * Notification Service.
  *
  * @see http://tinyurl.com/ApplePushNotificationPayload
+ *
+ * @phpstan-type PayloadDictionary ReservedPayloadDictionary&CustomPayloadDictionary
+ * @phpstan-type CustomPayloadDictionary array<string,scalar|array<array-key,mixed>>
+ * @phpstan-type ReservedPayloadDictionary array{
+ *     aps: array{
+ *         alert?: string|array{
+ *             title:string,
+ *             body:string
+ *         },
+ *         badge?: int,
+ *         sound?: string,
+ *         content-available?: int,
+ *         mutable-content?: int,
+ *         category?: string,
+ *         thread-id?: string,
+ *     },
+ * }
  */
 class Message
 {
@@ -99,7 +116,7 @@ class Message
 
     /**
      * Custom properties container.
-     * @var array<string,mixed>
+     * @var array<string,scalar|array<array-key,mixed>>
      */
     protected array $customProperties = [];
 
@@ -393,8 +410,8 @@ class Message
     /**
      * Set a custom property.
      *
-     * @param string $name  Custom property name.
-     * @param mixed  $value Custom property value.
+     * @param string                        $name  Custom property name.
+     * @param scalar|array<array-key,mixed> $value Custom property value.
      */
     public function setCustomProperty(string $name, $value): void
     {
@@ -422,9 +439,9 @@ class Message
      *
      * @param string $name Custom property name.
      *
-     * @return string The custom property value.
+     * @return scalar|array<array-key,mixed> The custom property value.
      */
-    public function getCustomProperty(string $name)
+    public function getCustomProperty(string $name): array|bool|float|int|string
     {
         if (!array_key_exists($name, $this->customProperties)) {
             throw new Exception(
@@ -476,7 +493,7 @@ class Message
      * For more information on push titles see:
      * https://stackoverflow.com/questions/40647061/bold-or-other-formatting-in-ios-push-notification
      *
-     * @return array<string,mixed> The payload dictionary.
+     * @return PayloadDictionary The payload dictionary.
      */
     protected function getPayloadDictionary(): array
     {
