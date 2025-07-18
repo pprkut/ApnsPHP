@@ -100,7 +100,7 @@ jobs:
     needs: [phpunit, phpcs, phpstan]
     continue-on-error: true
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'move-backend' && github.ref_name == 'master' }}
+    if: ${{ github.repository_owner == 'framna-nl-backend' && github.ref_name == 'master' }}
     name: "Report status"
     steps:
 

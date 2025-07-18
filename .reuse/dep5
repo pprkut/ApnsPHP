@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ApnsPHP
 Upstream-Contact: Move Backend Team <backend@moveagency.com>
-Source: https://github.com/move-backend/ApnsPHP
+Source: https://github.com/framna-nl-backend/ApnsPHP
 
 Files: composer.json
 Copyright: 2013 korchasa (korchasa@gmail.com)
