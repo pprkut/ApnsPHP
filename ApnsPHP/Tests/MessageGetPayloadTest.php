@@ -15,7 +15,7 @@ namespace ApnsPHP\Tests;
  *
  * @covers \ApnsPHP\Message
  */
-class MessageGetPayloadTestCase extends MessageTestCase
+class MessageGetPayloadTest extends MessageTestCase
 {
     /**
      * Test that getPayload() returns complete JSON encoded payload

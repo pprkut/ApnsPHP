@@ -15,7 +15,7 @@ namespace ApnsPHP\Tests;
  *
  * @covers \ApnsPHP\Push
  */
-class PushDisconnectTestCase extends PushTestCase
+class PushDisconnectTest extends PushTestCase
 {
     /**
      * Test that disconnect() disconnects successfully

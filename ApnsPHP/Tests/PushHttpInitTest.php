@@ -20,7 +20,7 @@ use Lcobucci\JWT\Token\Signature;
  *
  * @covers \ApnsPHP\Push
  */
-class PushHttpInitTestCase extends PushTestCase
+class PushHttpInitTest extends PushTestCase
 {
     /**
      * Test that httpInit() succeeds with certificate

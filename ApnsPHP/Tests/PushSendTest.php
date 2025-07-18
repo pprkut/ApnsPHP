@@ -18,7 +18,7 @@ use stdClass;
  *
  * @covers \ApnsPHP\Push
  */
-class PushSendTestCase extends PushTestCase
+class PushSendTest extends PushTestCase
 {
     /**
      * Test that send() throws an exception if there is no connection to the push notification service
