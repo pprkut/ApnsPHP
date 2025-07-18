@@ -2,14 +2,19 @@
 <!-- SPDX-FileCopyrightText: Copyright 2011 M2mobi B.V., Amsterdam, The Netherlands -->
 <!-- SPDX-FileCopyrightText: Copyright 2022 Move Agency Group B.V., Zwolle, The Netherlands -->
 <!-- SPDX-License-Identifier: CC0-1.0 -->
-
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
          backupGlobals="false"
-         backupStaticAttributes="false"
-         forceCoversAnnotation="true"
          colors="true"
-         verbose="true">
-
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false"
+         requireCoverageMetadata="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true">
     <testsuites>
         <testsuite name="Base">
             <directory>ApnsPHP/Tests/</directory>
@@ -18,24 +23,22 @@
             <directory>ApnsPHP/Message/Tests/</directory>
         </testsuite>
     </testsuites>
-
     <logging>
         <junit outputFile="logs/junit.xml"/>
     </logging>
-
     <coverage>
-        <include>
-            <directory>ApnsPHP/</directory>
-        </include>
-
-        <exclude>
-            <directory>ApnsPHP/Tests</directory>
-            <directory>ApnsPHP/Message/Tests</directory>
-        </exclude>
-
         <report>
             <clover outputFile="logs/clover.xml"/>
             <html outputDirectory="logs/coverage" lowUpperBound="35" highLowerBound="70"/>
         </report>
     </coverage>
+    <source>
+        <include>
+            <directory>ApnsPHP/</directory>
+        </include>
+        <exclude>
+            <directory>ApnsPHP/Tests</directory>
+            <directory>ApnsPHP/Message/Tests</directory>
+        </exclude>
+    </source>
 </phpunit>
