@@ -15,7 +15,7 @@ namespace ApnsPHP\Tests;
  *
  * @covers \ApnsPHP\Push
  */
-class PushAddTestCase extends PushTestCase
+class PushAddTest extends PushTestCase
 {
     /**
      * Test that add() successfully adds one message

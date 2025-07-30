@@ -17,7 +17,7 @@ use ApnsPHP\Push;
  *
  * @covers \ApnsPHP\Push
  */
-class PushInvalidTestCase extends PushTestCase
+class PushInvalidTest extends PushTestCase
 {
     /**
      * TestCase constructor

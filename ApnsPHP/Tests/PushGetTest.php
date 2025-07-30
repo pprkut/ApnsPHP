@@ -14,7 +14,7 @@ namespace ApnsPHP\Tests;
  *
  * @covers \ApnsPHP\Push
  */
-class PushGetTestCase extends PushTestCase
+class PushGetTest extends PushTestCase
 {
     /**
      * Test that getSendRetryTimes() returns how often sends should be retried.

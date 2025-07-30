@@ -16,6 +16,7 @@ on:
 
 jobs:
   phpunit:
+    if: ${{ ( github.event_name == 'schedule' && github.repository_owner == 'framna-nl-backend' ) || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     name: "PHP-${{ matrix.php-versions }}: PHPUnit"
@@ -57,6 +58,7 @@ jobs:
         run: phpunit -c phpunit.xml
 
   phpcs:
+    if: ${{ ( github.event_name == 'schedule' && github.repository_owner == 'framna-nl-backend' ) || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     continue-on-error: false
     name: "PHPCS"
@@ -75,6 +77,7 @@ jobs:
         run: phpcs -q --report=checkstyle ApnsPHP | cs2pr
 
   phpstan:
+    if: ${{ ( github.event_name == 'schedule' && github.repository_owner == 'framna-nl-backend' ) || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     continue-on-error: false
     name: "PHPStan"
@@ -100,7 +103,7 @@ jobs:
     needs: [phpunit, phpcs, phpstan]
     continue-on-error: true
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'move-backend' && github.ref_name == 'master' }}
+    if: ${{ github.repository_owner == 'framna-nl-backend' && github.ref_name == 'master' }}
     name: "Report status"
     steps:
 
